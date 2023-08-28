@@ -11,7 +11,7 @@ require_once 'header.php';
         <?php if (isset($_SESSION)) { ?>
         <li><a href="#" class="nav-links">Ajouter une adresse</a></li>
         <li><a href="#" class="nav-links">Profil</a></li>
-        <li><a href="#" class="nav-links">Déconnexion</a></li>            
+        <li><a href="logout.php" class="nav-links">Déconnexion</a></li>            
         <?php } else { ?>
             <li><a href="login.php" class="nav-links">Connexion</a></li>
             <li><a href="signin.php" class="nav-links">Inscription</a></li>
