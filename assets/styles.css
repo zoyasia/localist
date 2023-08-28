@@ -1,0 +1,118 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ------- NAVBAR ----- */
+.landing-navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+.logo {
+    width: 50px;
+    padding: 10px;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.nav-links {
+    margin-left: 50px;
+    margin-right: 20px;
+    color: orange;
+    padding: 1rem;
+    display: inline-block;
+}
+
+.nav-links:hover {
+    color: white;
+    background: orange;
+    border-radius: 10px;
+    padding: 1rem;
+    transform: scale(1.1);
+}
+
+/* ------- HERO HEADER ----- */
+
+/*
+.hero{
+    display: flex;
+    flex-direction: row;
+    padding: 2rem ;
+    justify-content: space-evenly;
+    width: 100%;
+    background-color: red;
+}
+*/
+
+.hero{
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("hero.jpg");
+height: 50%;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+margin: 5%;
+border-radius: 10px;
+padding: 5%;
+display: flex;
+}
+
+.hero-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: orange;
+}
+
+.hero-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    
+}
+
+.hero-btn{
+    padding: 1rem;
+    margin: 1rem;
+    text-decoration: none;
+    background-color: orange;
+    border-radius: 10px;
+    color: white;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: orange;
+}
+
+.modal-wrapper{
+    background-color: 600px;
+    padding: 20px;
+}
+
+/* FORM */
+.form-input{
+    padding: 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+::placeholder {
+    font-style: italic;
+}
