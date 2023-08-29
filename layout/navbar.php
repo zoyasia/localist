@@ -8,7 +8,7 @@ require_once 'header.php';
     </div>
     <ul class="nav-list">
         <li><a href="about.php" class="nav-links">A propos</a></li>
-        <?php if (isset($_SESSION)) { ?>
+        <?php if (isset($_SESSION['email'])) { ?>
         <li><a href="#" class="nav-links">Ajouter une adresse</a></li>
         <li><a href="#" class="nav-links">Profil</a></li>
         <li><a href="logout.php" class="nav-links">Déconnexion</a></li>            

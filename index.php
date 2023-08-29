@@ -1,4 +1,14 @@
 <?php
+require_once 'functions/db.php';
+
+try{
+    $pdo=getDbConnection();
+} catch(PDOException) {
+    http_response_code(500);
+    echo "La connexion à la base de données a échoué";
+    exit;
+}
+
 require_once 'layout/navbar.php';
 ?>
 

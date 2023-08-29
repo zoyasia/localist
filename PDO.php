@@ -7,3 +7,8 @@ try {
     exit;
 };
 
+
+// $query= $pdo->query('SELECT * FROM addresses');
+// var_dump($query);
+// $ligne = $query->fetch(PDO::FETCH_ASSOC);
+// var_dump($ligne);
