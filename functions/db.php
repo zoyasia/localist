@@ -13,11 +13,18 @@ function getDbConnection(): PDO
         'DB_PASSWORD' => $dbPassword
     ] = $dbSettings;
 
-        $pdo = new PDO("mysql:host=$dbHost;port=$dbPort;dbname=$dbName;charset=$dbCharset", $dbUser, $dbPassword,
-        [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]
-        );
-        return $pdo;
-}
+    $dsn = "mysql:host=$dbHost;port=$dbPort;dbname=$dbName;charset=$dbCharset";
+
+    $options = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ];
+
+    try{
+        $pdo = new PDO($dsn, $dbUser, $dbPassword, $options);
+    }catch (PDOException $e) {
+        echo $e->getMessage();
+        exit;
+    }
+    return $pdo;
+    }
