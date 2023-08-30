@@ -2,6 +2,8 @@
 require_once 'layout/navbar.php';
 require_once 'functions/db.php';
 
+//VALIDATION DES DONNEES A EFFECTUER (format email, conformité passwords, champs non vides etc)
+
 // je récupère dans des variables les données entrées dans le formulaire
 $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];

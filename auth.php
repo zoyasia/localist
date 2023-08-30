@@ -4,6 +4,9 @@ require_once 'functions/db.php';
 require_once 'classes/Utils.php';
 
 session_start();
+
+//VALIDATION DES DONNEES A EFFECTUER (format email, conformité passwords, champs non vides etc)
+
 // je récupère dans des variables les données entrées dans le formulaire
 $enteredEmail = $_POST['email'];
 $enteredPwd = $_POST['pwd'];
