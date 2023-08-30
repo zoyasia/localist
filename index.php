@@ -9,7 +9,7 @@ try{
     exit;
 }
 
-require_once 'layout/navbar.php';
+require_once 'layout/header.php';
 ?>
 
 <section class="hero">
@@ -20,7 +20,7 @@ require_once 'layout/navbar.php';
     </div>
 
     <div class="hero-buttons">
-        <a href="signin.php" class="hero-btn">Inscription</a>
+        <a href="register.php" class="hero-btn">Inscription</a>
         <a href="login.php" class="hero-btn">Connexion</a>
     </div>
 
@@ -41,7 +41,7 @@ require_once 'layout/navbar.php';
     <h1>Qu'est-ce que c'est ?</h1>
 </section>
 
-<!-- <script src="app.js"></script>
+<!-- <script src="js/app.js"></script>
 -->
 
 <?php

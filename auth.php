@@ -1,24 +1,52 @@
 <?php
-require_once 'data/users.php';
 require_once 'functions/db.php';
 require_once 'classes/Utils.php';
-
-session_start();
 
 //VALIDATION DES DONNEES A EFFECTUER (format email, conformité passwords, champs non vides etc)
 
 // je récupère dans des variables les données entrées dans le formulaire
-$enteredEmail = $_POST['email'];
-$enteredPwd = $_POST['pwd'];
+[
+    'email' => $email,
+    'pwd' => $pwd
+] = $_POST;
 
-var_dump($enteredEmail);
-var_dump($enteredPwd);
+var_dump($email);
+var_dump($pwd);
 
 // Récupération de la connexion à la base de données
-$pdo=getDbConnection();
-var_dump($pdo);
+try {
+    $pdo=getDbConnection();
+} catch (PDOException) {
+    echo "La connexion à la base de données n'a pas pu être établie";
+    exit;
+}
 
+// Je prépare ma requête SQL
+$stmtUser = $pdo->prepare("SELECT * FROM users WHERE email=:email");
+// j'exécute ma requête
+$stmtUser->execute(['email' => $email]);
 
+$user = $stmtUser->fetch();
+
+var_dump($user);
+
+if ($user === false) {
+    echo "Utilisateur non trouvé";
+    exit;
+  } else {
+    $pwdHash = $user['pwd'];
+  }
+  
+
+  
+  if (password_verify($pwd, $pwdHash)) {
+    echo "Login ok";
+    //je redirige vers sa page d'accueil personnalisée
+  } else {
+    echo "Mot de passe incorrect";
+  }
+
+/*
 // Je prépare ma requête SQL
 $stmtconnect = $pdo->prepare("SELECT * FROM users WHERE email = ? AND pwd = ?");
 // je lie les paramètres à différentes valeurs
@@ -39,6 +67,8 @@ if ($user) {
     // Authentification échouée
     echo "L'authentification n'a pas abouti, veuillez réessayer";
 }
+
+*/
 
 /*
 Méthode utilisant un tableau de données entrées manuellement dans data/users.php
