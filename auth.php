@@ -45,10 +45,13 @@ if ($user === false) {
 
 // les vardump fonctionnent, je récupère bien le mdp en clair et en hash
 
+//Si les mots de passe correspondent, je redirige l'utilisateur vers sa page d'accueil personnalisée
+
   if (password_verify($pwd, $pwdHash)) {
-    echo "Login ok";
-    // je redirige vers sa page d'accueil personnalisée
-    // Utils::redirect('landing-page.php');
+    session_start();
+    $_SESSION['user_id'] = $user['id'];
+    Utils::redirect('landing-page.php');
+    exit;
   } else {
     echo "Mot de passe incorrect";
   }  
