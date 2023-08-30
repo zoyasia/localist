@@ -20,6 +20,18 @@ $pwdConfirm  = $_POST['pwdConfirm'];
 
 // Validation des données
 
+  //vérifier que le format du mail est correct
+
+  // insérer peutêtre des contraintes sur le pwd (majuscule, minuscule etc.)
+
+  // vérifier peut-être que le mail n'existe pas déjà dans la db 
+
+  // pour vérifier que les 2 pwd saisis sont identiques, insérer peut-être un
+  //if ($password != $confirmpassword) {
+  //echo("Error... Passwords do not match");
+  //exit;
+  //} else { $pwdOK = $pwd} et dans l'execute de la requête, insérer $pwdOK plutôt que pwd ?
+
 // Préparation de la requête avec les paramètres adéquats
 $stmtInsert = $pdo->prepare("INSERT INTO users(firstname, lastname, email, pwd) VALUES (?, ?, ?, ?)");
 

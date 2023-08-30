@@ -23,6 +23,7 @@ require_once 'layout/header.php';
 
 <a href="index.php">Retour à l'accueil</a>
 
+<!--fonctionnalité JS qui me permet, si je le souhaite, de voir les caractères entrés dans le champs pwd -->
 <script>
 function showPwd() {
   var x = document.getElementById("pwd");

@@ -21,6 +21,8 @@ try {
     exit;
 }
 
+var_dump($pdo);
+
 // Je prépare ma requête SQL
 $stmtUser = $pdo->prepare("SELECT * FROM users WHERE email=:email");
 // j'exécute ma requête
@@ -30,60 +32,23 @@ $user = $stmtUser->fetch();
 
 var_dump($user);
 
+//je vérifie d'abord la présence de l'utilisateur dans la db, et si je le trouve, je crée une variable qui contient le mdp hashé.
 if ($user === false) {
     echo "Utilisateur non trouvé";
     exit;
   } else {
     $pwdHash = $user['pwd'];
   }
-  
 
-  
+  var_dump($pwdHash);
+  var_dump($pwd);
+
+// les vardump fonctionnent, je récupère bien le mdp en clair et en hash
+
   if (password_verify($pwd, $pwdHash)) {
     echo "Login ok";
-    //je redirige vers sa page d'accueil personnalisée
+    // je redirige vers sa page d'accueil personnalisée
+    // Utils::redirect('landing-page.php');
   } else {
     echo "Mot de passe incorrect";
-  }
-
-/*
-// Je prépare ma requête SQL
-$stmtconnect = $pdo->prepare("SELECT * FROM users WHERE email = ? AND pwd = ?");
-// je lie les paramètres à différentes valeurs
-$stmtconnect->bindValue(1, $_POST['email'], PDO::PARAM_STR);
-$stmtconnect->bindValue(2, $_POST['pwd'], PDO::PARAM_STR);
-// j'exécute ma requête
-$stmtconnect->execute();
-
-$user = $stmtconnect->fetch(PDO::FETCH_ASSOC);
-
-if ($user) {
-    // Authentification réussie
-    // je stocke les informations d'utilisateur dans la session
-    $_SESSION['user'] = $user;
-    //je redirige vers sa page d'accueil personnalisée
-    Utils::redirect('landing-page.php');
-} else {
-    // Authentification échouée
-    echo "L'authentification n'a pas abouti, veuillez réessayer";
-}
-
-*/
-
-/*
-Méthode utilisant un tableau de données entrées manuellement dans data/users.php
-
-$foundUser = false;
-
-foreach($users as $user){
-    if($user->email === $enteredEmail && $user->password === $enteredPwd) {
-        $foundUser=true;
-        Utils::redirect('landing-page.php');
-        break;
-    } else {
-        echo "authentification échouée";
-        break;
-    }
-};
-
-*/
+  }  
