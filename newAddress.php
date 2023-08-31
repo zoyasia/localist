@@ -4,14 +4,14 @@ require_once 'layout/header.php';
 
 <h1>Ajouter une nouvelle addresse</h1>
 
-<form action="addAddressProcess.php" method="POST">
+<form action="addAddressProcess.php" method="POST" enctype='multipart/form-data'>
     <div class="form-input">
         <label for="name">Nom de l'établissement: *</label>
-        <input type="text" name="firstname" required="required" placeholder="La bonne Fourchette, Chez Titi, ...">
+        <input type="text" name="name" required="required" placeholder="La bonne Fourchette, Chez Titi, ...">
     </div>
     <div class="form-input">
         <label for="category">Catégorie: *</label>
-        <select name="category" id="category">
+        <select name="category" id="category" required>
             <option value="">--Choisir une catégorie--</option>
             <option value="restaurant">Restaurant</option>
             <option value="coffeeshop">Café</option>
@@ -21,7 +21,7 @@ require_once 'layout/header.php';
     </div>
     <div class="form-input">
         <label for="status">Statut: *</label>
-        <select name="status" id="status">
+        <select name="status" id="status" required>
             <option value="">--Approuvé / à tester ?--</option>
             <option value="tested">déjà testé</option>
             <option value="toBeTested">à tester</option>
@@ -37,11 +37,11 @@ require_once 'layout/header.php';
     </div>
     <div class="form-input">
         <label for="city">Ville: *</label>
-        <input type="text" name="city" id="city" required="required" placeholder="Paris, Guingamps, ... ">
+        <input type="text" name="city" id="city" required="required" placeholder="Paris, Guingamps, ... " min=10 max=10>
     </div>
     <div class="form-input">
         <label for="phone">Téléphone:</label>
-        <input type="tel" name="phone" id="phone" placeholder="07XXXXXXXX">
+        <input type="tel" name="phone" id="phone" placeholder="07XXXXXXXX" minlength="10" maxlength="12">
     </div>
     <div class="form-input">
         <label for="website">Site:</label>
@@ -53,7 +53,7 @@ require_once 'layout/header.php';
     </div>
     <br>
     <div>
-        <label for="myFile">Ajouter une photo:</label>
+        <label for="myFile">Ajouter une photo: (max 3MO)</label>
         <input type="file" name="myFile" />
     </div>
     <br>
