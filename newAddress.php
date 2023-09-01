@@ -13,10 +13,10 @@ require_once 'layout/header.php';
         <label for="category">Catégorie: *</label>
         <select name="category" id="category" required>
             <option value="">--Choisir une catégorie--</option>
-            <option value="restaurant">Restaurant</option>
-            <option value="coffeeshop">Café</option>
-            <option value="bar">Bar</option>
-            <option value="shop">Boutique</option>
+            <option value="1">Restaurant</option>
+            <option value="2">Café</option>
+            <option value="3">Bar</option>
+            <option value="4">Boutique</option>
         </select>
     </div>
     <div class="form-input">
@@ -53,7 +53,7 @@ require_once 'layout/header.php';
     </div>
     <br>
     <div>
-        <label for="myFile">Ajouter une photo: (max 3MO)</label>
+        <label for="myFile">Ajouter une photo: (max 3Mo)</label>
         <input type="file" name="myFile" />
     </div>
     <br>

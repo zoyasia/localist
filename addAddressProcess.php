@@ -4,18 +4,18 @@ require_once 'functions/db.php';
 require_once 'classes/Utils.php';
 
 // Récupération d'une instance de PDO
-try {
-    $pdo = getDbConnection();
-  } catch (PDOException) {
-    echo "Erreur de connexion à la base de données";
-    exit;
-  }
+// try {
+//     $pdo = getDbConnection();
+//   } catch (PDOException) {
+//     echo "Erreur de connexion à la base de données";
+//     exit;
+//   }
 
 // Récupération des données du formulaire d'ajout d'adresse
 [
     'name' => $addressName,
     'category' => $category,
-    'status' => $status,
+    'status' => $testStatus,
     'street' => $street,
     'zipcode' => $zipcode,
     'city' => $city,
@@ -31,7 +31,7 @@ if (isset($_FILES['myFile'])) {
     $fileType= pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
     $allowedFiles = ['jpg', 'png', 'jpeg'];
         if(in_array($fileType, $allowedFiles)) {
-            echo "type ok";
+            echo "le format du fichier est compatible";
         } else {
             echo "le format du fichier n'est pas compatible";
         }
@@ -43,6 +43,41 @@ var_dump($_POST);
 var_dump($file); 
 
 //VALIDATION zipcode = 5 chiffres + tel
+
+// Je double-check (en plus des attributs required insérés dans les inputs du formulaire) que les champs requis ne soient pas vides
+if (!empty($addressName)
+&& !empty($category)
+&& !empty($testStatus)
+&& !empty($street)
+&& !empty($zipcode)
+&& !empty($city)){
+    //echo "formulaire valide";
+    try {
+        $pdo = getDbConnection();
+
+        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, zipcode, city, phone, website, testStatus, category_id, street) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $stmtInsert->execute([
+            $addressName,
+            $filename,
+            $comment, 
+            $zipcode, 
+            $city, 
+            $phone, 
+            $website, 
+            $testStatus, 
+            $category,
+            $street
+        ]);
+      } catch (PDOException) {
+        echo "Erreur de connexion à la base de données";
+        exit;
+      }
+}else{
+    echo "formulaire invalide";
+    //Utils::redirect('newAddress.php');
+}
+
 
 
 //TESTS DE CODE DE VALIDATION
@@ -67,19 +102,3 @@ var_dump($file);
 // } else {
 //     $myFile = "";
 // }
-
-
-
-// Je double-check (en plus des attributs required insérés dans les inputs du formulaire) que les champs requis ne soient pas vides
-if (!empty($addressName)
-&& !empty($category)
-&& !empty($status)
-&& !empty($street)
-&& !empty($zipcode)
-&& !empty($city)){
-    echo "formulaire valide";
-    // insérer le try catch ici ?
-}else{
-    echo "formulaire invalide";
-    //Utils::redirect('newAddress.php');
-}

@@ -33,10 +33,10 @@ $pwdConfirm  = $_POST['pwdConfirm'];
   //} else { $pwdOK = $pwd} et dans l'execute de la requête, insérer $pwdOK plutôt que pwd ?
 
 // Préparation de la requête avec les paramètres adéquats
-$stmtInsert = $pdo->prepare("INSERT INTO users(firstname, lastname, email, pwd) VALUES (?, ?, ?, ?)");
+$stmtRegister = $pdo->prepare("INSERT INTO users(firstname, lastname, email, pwd) VALUES (?, ?, ?, ?)");
 
 // Exécution de la requête
-$stmtInsert->execute([
+$stmtRegister->execute([
   $firstname,
   $lastname,
   $email,
