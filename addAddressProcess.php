@@ -25,7 +25,7 @@ try {
 ] = $_POST;
 
 if (isset($_FILES['myFile'])) {
-    // on met le fichier dans une variable pour une meilleure lisibilité
+    // on met le fichier dans une variable pour une meilleure lisibilité et j'essaye ensuite d'extraire son nom et son extension pour vérifier que cette dernière fasse partie des extensions autorisées
     $file = $_FILES['myFile'];
     $filename = $file['name'];
     $fileType= pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
@@ -77,9 +77,9 @@ if (!empty($addressName)
 && !empty($street)
 && !empty($zipcode)
 && !empty($city)){
-    echo "form ok";
+    echo "formulaire valide";
     // insérer le try catch ici ?
 }else{
-    echo "form NOT OK";
+    echo "formulaire invalide";
     //Utils::redirect('newAddress.php');
 }
