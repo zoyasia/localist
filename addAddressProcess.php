@@ -3,13 +3,11 @@
 require_once 'functions/db.php';
 require_once 'classes/Utils.php';
 
-// Récupération d'une instance de PDO
-// try {
-//     $pdo = getDbConnection();
-//   } catch (PDOException) {
-//     echo "Erreur de connexion à la base de données";
-//     exit;
-//   }
+session_start();
+var_dump($_SESSION);
+// je récupère l'id de la session pour lier l'adresse à ajouter à cet utilisateur.
+$user = $_SESSION['user_id'];
+var_dump($user);
 
 // Récupération des données du formulaire d'ajout d'adresse
 [
@@ -51,11 +49,11 @@ if (!empty($addressName)
 && !empty($street)
 && !empty($zipcode)
 && !empty($city)){
-    //echo "formulaire valide";
+    
     try {
         $pdo = getDbConnection();
 
-        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, zipcode, city, phone, website, testStatus, category_id, street) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, zipcode, city, phone, website, testStatus, category_id, street, user_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $stmtInsert->execute([
             $addressName,
@@ -67,8 +65,13 @@ if (!empty($addressName)
             $website, 
             $testStatus, 
             $category,
-            $street
+            $street,
+            $user
         ]);
+
+        Utils::redirect("landing-page.php");
+
+
       } catch (PDOException) {
         echo "Erreur de connexion à la base de données";
         exit;

@@ -28,6 +28,16 @@ if (isset($_SESSION['user_id'])) {
 } else {
   echo "Vous n'êtes pas connecté.";
 }
+
+//Afficher les adresses enregistrées par le user connecté
+$stmtAddress = $pdo->prepare("SELECT * FROM addresses WHERE user_id = ?");
+$stmtAddress->execute([$user_id]);
+while ($addressList = $stmtAddress->fetch(PDO::FETCH_ASSOC)){
+  var_dump($addressList);
+};
+
+// var_dump($addressList['addressName']);
+
 ?>
 
 <br>
@@ -36,7 +46,7 @@ if (isset($_SESSION['user_id'])) {
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
   <div class="col">
-    <?php   ?>
+    <?php //foreach($addressList as $item) { ?>
     <div class="card h-100">
       <img src="..." class="card-img-top" alt="photo de l'établissement">
       <div class="card-body">
@@ -44,6 +54,7 @@ if (isset($_SESSION['user_id'])) {
         <p class="card-text">adresse</p>
       </div>
     </div>
+    <?php // } ?>
   </div>
   <div class="col">
     <div class="card h-100">
