@@ -45,6 +45,14 @@ try {
   exit;
 }
 
+//ligne pour afficher le statut de l'adress
+// <p class="card-text"><?php  
+// if($addresses['testStatus'] === "tested"){
+//   echo "Testé & approuvé";
+// } else {
+//   echo "à tester";
+// } ?></p>
+
 ?>
 
 <br>
@@ -54,7 +62,7 @@ try {
 <div class="row row-cols-1 row-cols-md-2 g-4">
   <?php foreach ($addresses as $address) { ?>
     <div class="col">
-      <div class="card">
+      <div class="card h-100">
         <img src="assets/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
         <div class="card-body">
           <h5 class="card-title"><?php echo $address['addressName'] ?></h5>
