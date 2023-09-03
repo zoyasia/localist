@@ -43,17 +43,16 @@ try {
 } catch (PDOException) {
   echo "Erreur lors de la récupération de vos adresses favorites";
   exit;
-}
+} 
+?>
 
-//ligne pour afficher le statut de l'adress
+<!--ligne pour afficher le statut de l'adress
 // <p class="card-text"><?php  
 // if($addresses['testStatus'] === "tested"){
 //   echo "Testé & approuvé";
 // } else {
-//   echo "à tester";
-// } ?></p>
-
-?>
+//   echo "à tester"; ne pas oubl
+// } ?><!--</p> -->
 
 <br>
 
@@ -65,10 +64,10 @@ try {
       <div class="card h-100">
         <img src="assets/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
         <div class="card-body">
-          <h5 class="card-title"><?php echo $address['addressName'] ?></h5>
-          <p class="card-text"><?php echo $address['street'] ?></p>
-          <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city'] ?></p>
-          <a href="adressDetails.php">Voir plus</a>
+          <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
+          <p class="card-text"><?php echo $address['street']; ?></p>
+          <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
+          <a href="adressDetails.php?id=<?php echo $address['id'];?>">Voir plus</a>
         </div>
       </div>
     </div>
