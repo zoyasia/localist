@@ -1,5 +1,7 @@
 <?php
 
+
+
 function getDbConnection(): PDO
 {
     // je décompose mon fichier db.ini
@@ -28,3 +30,16 @@ function getDbConnection(): PDO
     }
     return $pdo;
     }
+
+
+    function getAddresses(): array
+    {
+      $pdo = getDbConnection();
+      $user_id = $_SESSION['user_id'];
+      $stmtAddress = $pdo->prepare("SELECT * FROM addresses WHERE user_id = ?");
+      $stmtAddress->execute([$user_id]);
+
+      while ($addressList = $stmtAddress->fetchAll()){
+        return($addressList);
+      };
+    }    
