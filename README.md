@@ -21,3 +21,11 @@ Lorsque je testais mon formulaire de connexion en entrant un mail et un mot de p
 ## Configuration PHP
 Dans mon formulaire pour ajouter une nouvelle adresse (méthode POST), je propose d'uploader une image.
 J'ai configuré dans mon php.ini la taille maximale d'upload de fichier (3MO) et la taille maximale des données POST que mon serveur peut accepter (3MO).
+
+## Raisonnement/ méthodo pour la modification d'une adresse existante 
+1- dans le lien "Modifier", insérer un $_GET pour récup l'id de l'adresse à modifier
+2- récupérer cet id sur cette page
+3- Etablir la connexion à la bdd avec un try catch
+4- reprendre le formulaire newAddress
+faire en sorte que si aucune donnée n'est entrée dans un champs, alors on conserve la donnée précédemment connue.
+5- bouton valider modifie la base de données

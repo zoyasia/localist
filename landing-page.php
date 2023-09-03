@@ -67,7 +67,7 @@ try {
           <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
           <p class="card-text"><?php echo $address['street']; ?></p>
           <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
-          <a href="adressDetails.php?id=<?php echo $address['id'];?>">Voir plus</a>
+          <a href="addressDetails.php?id=<?php echo $address['id'];?>">Voir plus</a>
         </div>
       </div>
     </div>
