@@ -23,8 +23,8 @@ require_once 'layout/header.php';
         <label for="status">Statut: *</label>
         <select name="status" id="status" required>
             <option value="">--Approuvé / à tester ?--</option>
-            <option value="tested">déjà testé</option>
-            <option value="toBeTested">à tester</option>
+            <option value="1">à tester</option>
+            <option value="2">déjà testé</option>
         </select>
     </div>
     <div class="form-input">
