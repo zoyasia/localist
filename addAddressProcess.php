@@ -44,7 +44,7 @@ $file = "";
 var_dump($_POST);
 var_dump($file);
 
-/*
+/* Test code de validation de la taille et du type de fichier
     if ($fileSize > 3 * 1024 * 1024) { // 3 Mo
         echo "Le fichier est trop volumineux.";
     } elseif (!in_array($fileType, $allowedFiles)) {
@@ -80,27 +80,25 @@ if (!empty($addressName)
         $pdo = getDbConnection();
 
 
-        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, zipcode, city, phone, website, testStatus, category_id, street, user_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, street, zipcode, city, phone, website, category_id, user_id, status_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
         $stmtInsert->execute([
             $addressName,
             $filename,
             $comment,
+            $street,
             $zipcode,
             $city,
             $phone,
             $website,
-            $status_id,
             $category,
-            $street,
-            $user
+            $user,
+            $status_id
         ]);
 
 
         Utils::redirect("landing-page.php");
-
-
 
 
       } catch (PDOException) {
