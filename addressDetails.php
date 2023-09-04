@@ -59,7 +59,7 @@ require_once 'layout/header.php';
 
 <div class="container d-flex p-1">
   <div>
-    <a href="">Modifier</a>
+    <a href="updateAddress.php?id=<?php echo $addressDetail['id'];?>">Modifier</a>
   </div>
   <div>
     <button>Supprimer</button>
