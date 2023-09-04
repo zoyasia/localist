@@ -53,7 +53,8 @@ require_once 'layout/header.php';
     </div>
     <br>
     <div>
-        <label for="myFile">Ajouter une photo: (max 3Mo)</label>
+        <label for="myFile">Ajouter une photo: (Fichiers autorisés: jpg, jpeg, png / max 3Mo)</label>
+        <br>
         <input type="file" name="myFile" />
     </div>
     <br>

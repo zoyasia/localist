@@ -1,7 +1,5 @@
 <?php
 
-
-
 function getDbConnection(): PDO
 {
     // je décompose mon fichier db.ini

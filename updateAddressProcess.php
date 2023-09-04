@@ -9,6 +9,14 @@ var_dump($_SESSION);
 $user = $_SESSION['user_id'];
 var_dump($user);
 
+$addressId = $_GET['id'] ?? null;
+
+if ($addressId === null) {
+    echo "Merci de préciser un id";
+    exit;
+}
+
+
 // Récupération des données du formulaire d'ajout d'adresse
 [
     'name' => $addressName,
@@ -37,9 +45,8 @@ if (!empty($addressName)
     try {
         $pdo = getDbConnection();
 
-        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, comment, zipcode, city, phone, website, status_id, category_id, street, user_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-        $stmtInsert->execute([
+        $stmtUpdate = $pdo -> prepare("UPDATE addresses SET addressName = ?, comment = ?, zipcode = ?, city = ?, phone = ?, website = ?, status = ?, category= ?, street = ? WHERE id = ? AND user_id = ?");
+        $stmtUpdate->execute([
             $addressName,
             $comment, 
             $zipcode, 
@@ -49,14 +56,13 @@ if (!empty($addressName)
             $status, 
             $category,
             $street,
+            $addressId,
             $user
         ]);
 
 
-var_dump($addressDetail['id']);
-
         // WARNING !!!!!!!! ne redirige pas vers l'id. $addressDetail n'existe pas dans cette page
-        Utils::redirect("addressDetails.php?id=" . $addressDetail['id']);
+        Utils::redirect("addressDetails.php?id=" . $addressId);
 
 
       } catch (PDOException) {

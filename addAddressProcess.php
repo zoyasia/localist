@@ -3,11 +3,13 @@
 require_once 'functions/db.php';
 require_once 'classes/Utils.php';
 
+
 session_start();
 var_dump($_SESSION);
 // je récupère l'id de la session pour lier l'adresse à ajouter à cet utilisateur.
 $user = $_SESSION['user_id'];
 var_dump($user);
+
 
 // Récupération des données du formulaire d'ajout d'adresse
 [
@@ -22,25 +24,49 @@ var_dump($user);
     'comment' => $comment,
 ] = $_POST;
 
+
 if (isset($_FILES['myFile'])) {
     // on met le fichier dans une variable pour une meilleure lisibilité et j'essaye ensuite d'extraire son nom et son extension pour vérifier que cette dernière fasse partie des extensions autorisées
     $file = $_FILES['myFile'];
     $filename = $file['name'];
     $fileType= pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
+    $fileSize = $file['size'];
     $allowedFiles = ['jpg', 'png', 'jpeg'];
-        if(in_array($fileType, $allowedFiles)) {
-            echo "le format du fichier est compatible";
-        } else {
-            echo "le format du fichier n'est pas compatible";
-        }
+
+    if(in_array($fileType, $allowedFiles)) {
+        echo "le format du fichier est compatible";
+    } else {
+        echo "le format du fichier n'est pas compatible";
+    }
 } else {
-    $file = "";
+$file = "";
+}
+var_dump($_POST);
+var_dump($file);
+
+/*
+    if ($fileSize > 3 * 1024 * 1024) { // 3 Mo
+        echo "Le fichier est trop volumineux.";
+    } elseif (!in_array($fileType, $allowedFiles)) {
+        echo "Le format du fichier n'est pas compatible.";
+    } else {
+        // Tout est OK, déplacez le fichier vers l'emplacement souhaité
+        $destination = __DIR__ . "/uploads/" . $filename; // Répertoire de destination
+                
+        if (move_uploaded_file($file['tmp_name'], $destination)) {
+            echo $filename . " téléchargé avec succès <br />";
+        } else {
+            echo "Erreur lors du téléchargement du fichier.";
+        }
+    }
+} else {
+    $filename = ""; // Aucun fichier téléchargé
 }
 
-var_dump($_POST);
-var_dump($file); 
+*/
 
 //VALIDATION zipcode = 5 chiffres + tel
+
 
 // Je double-check (en plus des attributs required insérés dans les inputs du formulaire) que les champs requis ne soient pas vides
 if (!empty($addressName)
@@ -49,27 +75,32 @@ if (!empty($addressName)
 && !empty($street)
 && !empty($zipcode)
 && !empty($city)){
-    
+   
     try {
         $pdo = getDbConnection();
 
+
         $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, zipcode, city, phone, website, testStatus, category_id, street, user_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
 
         $stmtInsert->execute([
             $addressName,
             $filename,
-            $comment, 
-            $zipcode, 
-            $city, 
-            $phone, 
-            $website, 
-            $status_id, 
+            $comment,
+            $zipcode,
+            $city,
+            $phone,
+            $website,
+            $status_id,
             $category,
             $street,
             $user
         ]);
 
+
         Utils::redirect("landing-page.php");
+
+
 
 
       } catch (PDOException) {
@@ -83,6 +114,9 @@ if (!empty($addressName)
 
 
 
+
+
+
 //TESTS DE CODE DE VALIDATION
 // $allowedFiles = ['jpg', 'png', 'jpeg'];
 // if(in_array($fileType, $allowedFiles)) {
@@ -90,6 +124,7 @@ if (!empty($addressName)
 // } else {
 //     echo "le format du fichier n'est pas compatible";
 // }
+
 
 // if(!empty($_FILES['myFile'])){
 //     //VALIDATION du type de fichier: jpg/png/jpeg.

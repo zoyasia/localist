@@ -3,15 +3,17 @@
 class Address {
     public function __construct(
     protected int $id,
-    protected string $name,
-    protected string $category,
-    protected string $status,
+    protected string $addressName,
     protected string $picture,
     protected string $comment,
+    protected string $street,
     protected int $zipcode,
     protected string $city,
     protected string $phone,
-    protected string $url,
+    protected string $website,
+    protected int $category_id,
+    protected int $user_id,
+    protected int $status_id,
     ){
     }
     
@@ -19,37 +21,37 @@ class Address {
 
     public function getName(): string
     {
-        return $this->name;
+        return $this->addressName;
     }
 
-    public function setName($name)
+    public function setName($addressName)
     {
-        $this->name = $name;
+        $this->addressName = $addressName;
         return $this;
     }
 
 
     public function getCategory()
     {
-        return $this->category;
+        return $this->category_id;
     }
 
 
-    public function setCategory($category)
+    public function setCategory($category_id)
     {
-        $this->category = $category;
+        $this->category_id = $category_id;
 
         return $this;
     }
 
     public function getStatus()
     {
-        return $this->status;
+        return $this->status_id;
     }
 
-    public function setStatus($status)
+    public function setStatus($status_id)
     {
-        $this->status = $status;
+        $this->status_id = $status_id;
 
         return $this;
     }
@@ -112,12 +114,12 @@ class Address {
 
     public function getUrl()
     {
-        return $this->url;
+        return $this->website;
     }
 
-    public function setUrl($url)
+    public function setUrl($website)
     {
-        $this->url = $url;
+        $this->website = $website;
 
         return $this;
     }

@@ -1,7 +1,7 @@
-<?php
-require_once 'layout/header.php';
-
-// je récupère à l'aide de la superglobale $_GET l'id envoyé dans l'url depuis la carte adresse sur landing-page
+<?php 
+require_once __DIR__ . '/../layout/header.php';
+require_once __DIR__ . '/../functions/db.php';
+require_once __DIR__ . '/../classes/Addresse.php';
 
 $id = $_GET['id'] ?? null;
 
@@ -10,9 +10,6 @@ if ($id === null) {
     exit;
 }
 
-require_once 'functions/db.php';
-
-//Connexion à la base de données
 try {
     $pdo = getDbConnection();
 } catch (PDOException) {
@@ -21,24 +18,19 @@ try {
     exit;
 }
 
-// je prépare ma requête avec un paramètre nommé pour éviter les injections sql
 $stmtDetail = $pdo->prepare("SELECT * FROM addresses WHERE id=:id");
 $stmtDetail->execute(['id' => $id]);
 
-$addressDetail = $stmtDetail->fetch(); // renvoit soit l'adresse si elle est trouvée, soit false. Dans ce cas, on envoit un mssg d'erreur 404:
+$addressData = $stmtDetail->fetch(PDO::FETCH_ASSOC);
 
-
-var_dump($addressDetail);
-
-if ($addressDetail === false) {
+if ($addressData === false) {
     http_response_code(404);
     echo "Not found";
     exit;
 }
 
-$addressId = $addressDetail['id'];
-
-var_dump($addressId);
+// Créez une instance de la classe Address avec les données de la base de données
+$address = new Address($addressData['id'], $addressData['addressName'], $addressData['picture'], $addressData['comment'], $addressData['street'], $addressData['zipcode'], $addressData['city'], $addressData['phone'], $addressData['website'], $addressData['category_id'], $addressData['user_id'], $addressData['status_id']);
 
 ?>
 
