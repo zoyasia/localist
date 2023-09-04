@@ -33,6 +33,34 @@ if (isset($_FILES['myFile'])) {
     $fileSize = $file['size'];
     $allowedFiles = ['jpg', 'png', 'jpeg'];
 
+    // validation de la taille et du type de fichier
+    if ($fileSize > 3 * 1024 * 1024) { // 3 Mo
+        echo "Le fichier est trop volumineux.";
+    } elseif (!in_array($fileType, $allowedFiles)) {
+        echo "Le format du fichier n'est pas compatible.";
+    } else {
+
+        /*
+         // Tout est OK, déplacez le fichier vers l'emplacement souhaité
+         $destination = __DIR__ . "/uploads/" . $filename; // Répertoire de destination
+                
+         if (move_uploaded_file($file['tmp_name'], $destination)) {
+             echo $filename . " téléchargé avec succès <br />";
+         } else {
+             echo "Erreur lors du téléchargement du fichier.";
+         }
+     }
+ } else {
+
+    */
+
+    $filename = ""; // Aucun fichier téléchargé
+}
+}
+
+
+    /* Ancienne version de validation type fichier
+
     if(in_array($fileType, $allowedFiles)) {
         echo "le format du fichier est compatible";
     } else {
@@ -41,29 +69,13 @@ if (isset($_FILES['myFile'])) {
 } else {
 $file = "";
 }
+
+*/
+
+
 var_dump($_POST);
 var_dump($file);
 
-/* Test code de validation de la taille et du type de fichier
-    if ($fileSize > 3 * 1024 * 1024) { // 3 Mo
-        echo "Le fichier est trop volumineux.";
-    } elseif (!in_array($fileType, $allowedFiles)) {
-        echo "Le format du fichier n'est pas compatible.";
-    } else {
-        // Tout est OK, déplacez le fichier vers l'emplacement souhaité
-        $destination = __DIR__ . "/uploads/" . $filename; // Répertoire de destination
-                
-        if (move_uploaded_file($file['tmp_name'], $destination)) {
-            echo $filename . " téléchargé avec succès <br />";
-        } else {
-            echo "Erreur lors du téléchargement du fichier.";
-        }
-    }
-} else {
-    $filename = ""; // Aucun fichier téléchargé
-}
-
-*/
 
 //VALIDATION zipcode = 5 chiffres + tel
 
