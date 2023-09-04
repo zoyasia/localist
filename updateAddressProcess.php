@@ -45,17 +45,17 @@ if (!empty($addressName)
     try {
         $pdo = getDbConnection();
 
-        $stmtUpdate = $pdo -> prepare("UPDATE addresses SET addressName = ?, comment = ?, zipcode = ?, city = ?, phone = ?, website = ?, status = ?, category= ?, street = ? WHERE id = ? AND user_id = ?");
+        $stmtUpdate = $pdo -> prepare("UPDATE addresses SET addressName = ?, comment = ?, street = ?, zipcode = ?, city = ?, phone = ?, website = ?, category_id= ?, status_id= ? WHERE id = ? AND user_id = ?");
         $stmtUpdate->execute([
             $addressName,
-            $comment, 
+            $comment,
+            $street,
             $zipcode, 
             $city, 
             $phone, 
-            $website, 
+            $website,
+            $category, 
             $status, 
-            $category,
-            $street,
             $addressId,
             $user
         ]);
