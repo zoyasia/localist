@@ -13,7 +13,7 @@ var_dump($user);
 [
     'name' => $addressName,
     'category' => $category,
-    'status' => $testStatus,
+    'status' => $status_id,
     'street' => $street,
     'zipcode' => $zipcode,
     'city' => $city,
@@ -45,7 +45,7 @@ var_dump($file);
 // Je double-check (en plus des attributs required insérés dans les inputs du formulaire) que les champs requis ne soient pas vides
 if (!empty($addressName)
 && !empty($category)
-&& !empty($testStatus)
+&& !empty($status_id)
 && !empty($street)
 && !empty($zipcode)
 && !empty($city)){
@@ -63,7 +63,7 @@ if (!empty($addressName)
             $city, 
             $phone, 
             $website, 
-            $testStatus, 
+            $status_id, 
             $category,
             $street,
             $user

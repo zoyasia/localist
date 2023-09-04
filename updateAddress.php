@@ -33,8 +33,6 @@ if ($addressDetail === false) {
     exit;
 }
 
-var_dump($addressDetail['category_id']);
-
 /*
 1- dans le lien "Modifier", insérer un $_GET pour récup l'id de l'adresse à modifier
 2- récupérer cet id sur cette page
@@ -49,7 +47,7 @@ Insérer la précédente valeur connue dans le placeholder ?
 <!--Formulaire modification adresse -->
 <h1>Modifier mon adresse</h1>
 <h2></h2>
-<form action="addAddressProcess.php" method="POST" enctype='multipart/form-data'>
+<form action="updateAddressProcess.php" method="POST" enctype='multipart/form-data'>
     <h2>
         <input type="text" name="name" value="<?php echo $addressDetail['addressName']; ?>">
     </h2>
@@ -98,10 +96,9 @@ Insérer la précédente valeur connue dans le placeholder ?
         <textarea name="comment" id="comment" value="<?php echo $addressDetail['comment'] ?>" rows="5" cols="33"></textarea>
     </div>
     <br>
-    <div>
-        <label for="myFile">Ajouter une photo: (max 3Mo)</label>
-        <input type="file" name="myFile" />
-    </div>
+    
+<!-- AJOUTER UPLOAD FICHIER : VERIFICATION + SUPPRESSION DE LA PRECEDEENTE SI EXISTANTE-->
+
     <br>
     <div class="d-flex p-1">
         <div>
