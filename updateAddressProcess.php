@@ -52,6 +52,10 @@ if (!empty($addressName)
             $user
         ]);
 
+
+var_dump($addressDetail['id']);
+
+        // WARNING !!!!!!!! ne redirige pas vers l'id. $addressDetail n'existe pas dans cette page
         Utils::redirect("addressDetails.php?id=" . $addressDetail['id']);
 
 

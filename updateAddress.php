@@ -27,6 +27,9 @@ $stmtDetail->execute(['id' => $id]);
 
 $addressDetail = $stmtDetail->fetch(); // renvoit soit l'adresse si elle est trouvée, soit false. Dans ce cas, on envoit un mssg d'erreur 404:
 
+
+var_dump($addressDetail);
+
 if ($addressDetail === false) {
     http_response_code(404);
     echo "Not found";
