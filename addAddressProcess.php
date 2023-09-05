@@ -40,9 +40,8 @@ if (isset($_FILES['myFile'])) {
         echo "Le format du fichier n'est pas compatible.";
     } else {
 
-        /*
-         // Tout est OK, déplacez le fichier vers l'emplacement souhaité
-         $destination = __DIR__ . "/uploads/" . $filename; // Répertoire de destination
+         // Tout est OK, déplacer le fichier vers l'emplacement souhaité
+         $destination = "uploads/" . $filename; // Répertoire de destination
                 
          if (move_uploaded_file($file['tmp_name'], $destination)) {
              echo $filename . " téléchargé avec succès <br />";
@@ -52,11 +51,11 @@ if (isset($_FILES['myFile'])) {
      }
  } else {
 
-    */
+
 
     $filename = ""; // Aucun fichier téléchargé
 }
-}
+
 
 
     /* Ancienne version de validation type fichier
