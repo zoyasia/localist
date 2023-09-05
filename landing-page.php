@@ -43,16 +43,8 @@ try {
 } catch (PDOException) {
   echo "Erreur lors de la récupération de vos adresses favorites";
   exit;
-} 
+}
 ?>
-
-<!--ligne pour afficher le statut de l'adresse
-// <p class="card-text"><?php  
-// if($addresses['testStatus'] === "tested"){
-//   echo "Testé & approuvé";
-// } else {
-//   echo "à tester"; ne pas oubl
-// } ?><!--</p> -->
 
 <br>
 
@@ -65,9 +57,14 @@ try {
         <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
         <div class="card-body">
           <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
+          <?php if ($address['status_id'] === 1) { ?>
+            <p class="card-text"><?php echo "À tester"; ?></p>
+          <?php } else { ?>
+            <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
+          <?php } ?>
           <p class="card-text"><?php echo $address['street']; ?></p>
           <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
-          <a href="addressDetails.php?id=<?php echo $address['id'];?>">Voir plus</a>
+          <a href="addressDetails.php?id=<?php echo $address['id']; ?>">Voir plus</a>
         </div>
       </div>
     </div>
