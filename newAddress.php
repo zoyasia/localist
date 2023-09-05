@@ -1,7 +1,6 @@
 <?php
 require_once 'layout/header.php';
 
-echo exec('whoami');
 ?>
 
 <h1>Ajouter une nouvelle addresse</h1>
