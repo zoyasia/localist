@@ -56,8 +56,6 @@ if (isset($_FILES['myFile'])) {
     $filename = ""; // Aucun fichier téléchargé
 }
 
-
-
     /* Ancienne version de validation type fichier
 
     if(in_array($fileType, $allowedFiles)) {

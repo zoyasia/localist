@@ -64,3 +64,6 @@ echo exec('whoami');
         <input type="submit" value="Valider">
     </div>
 </form>
+
+<?php
+require_once 'layout/footer.php';

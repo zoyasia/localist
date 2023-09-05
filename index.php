@@ -24,16 +24,6 @@ require_once 'layout/header.php';
         <a href="login.php" class="hero-btn">Connexion</a>
     </div>
 
-<!--
-        <a href="#modalin" class="hero-btn">Inscription</a>
-        <div id="modalin" class="modal" style="display: none;">
-            <div class="modal-wrapper">
-                <h1>test</h1>
-                <p>coucoucouc</p>
-
-            </div>
-        </div>        
--->
 
 </section>
 

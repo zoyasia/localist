@@ -23,7 +23,7 @@ try {
 $stmtDetail = $pdo->prepare("SELECT * FROM addresses WHERE id=:id");
 $stmtDetail->execute(['id' => $id]);
 
-$addressDetail = $stmtDetail->fetch(); // renvoit soit l'adresse si elle est trouvée, soit false. Dans ce cas, on envoit un mssg d'erreur 404:
+$addressDetail = $stmtDetail->fetch(); // renvoit soit les infos de l'adresse si elle est trouvée, soit false. Dans ce cas, on envoit un mssg d'erreur 404:
 
 if ($addressDetail === false) {
   http_response_code(404);
@@ -39,7 +39,7 @@ require_once 'layout/header.php';
   <h1><?php echo $addressDetail['addressName']; ?></h1>
   <div class="container d-flex p-1">
     <div>
-      <img src="assets/<?php echo $addressDetail['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
+      <img src="uploads/<?php echo $addressDetail['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
     </div>
     <div class="p-3">
       <p class="card-text"><?php echo $addressDetail['street'] ?></p>

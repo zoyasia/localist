@@ -46,7 +46,7 @@ try {
 } 
 ?>
 
-<!--ligne pour afficher le statut de l'adress
+<!--ligne pour afficher le statut de l'adresse
 // <p class="card-text"><?php  
 // if($addresses['testStatus'] === "tested"){
 //   echo "Testé & approuvé";
@@ -62,7 +62,7 @@ try {
   <?php foreach ($addresses as $address) { ?>
     <div class="col">
       <div class="card h-100">
-        <img src="assets/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
+        <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
         <div class="card-body">
           <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
           <p class="card-text"><?php echo $address['street']; ?></p>
@@ -73,3 +73,6 @@ try {
     </div>
   <?php } ?>
 </div>
+
+<?php
+require_once 'layout/footer.php';
