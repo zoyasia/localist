@@ -31,6 +31,12 @@ if ($addressDetail === false) {
   exit;
 }
 
+/* GESTION DES CATEGORIES */
+
+require_once 'classes/Category.php';
+
+// Je crée une instance de la classe Category en passant la connexion PDO
+$category = new Category($pdo);
 
 require_once 'layout/header.php';
 ?>
@@ -41,7 +47,19 @@ require_once 'layout/header.php';
     <div>
       <img src="uploads/<?php echo $addressDetail['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
     </div>
+
     <div class="p-3">
+      <?php if ($addressDetail['status_id'] === 1) { ?>
+        <p class="card-text"><?php echo "À tester"; ?></p>
+      <?php } else { ?>
+        <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
+      <?php } ?>
+      <?php
+      $categoryByID = $category->getCategoryByID($addressDetail['category_id']);
+      $categoryName = $categoryByID['name'];
+      $categoryColor = $categoryByID['color']; ?>
+      <p class="tag" style="background-color: <?php echo $categoryColor ?>"><?php echo $categoryName; ?></p>
+
       <p class="card-text"><?php echo $addressDetail['street'] ?></p>
       <p class="card-text"><?php echo $addressDetail['zipcode'] . " " . $addressDetail['city'] ?></p>
       <p class="card-text">Tel: <?php echo $addressDetail['phone'] ?></p>
@@ -59,7 +77,7 @@ require_once 'layout/header.php';
 
 <div class="container d-flex p-1">
   <div>
-    <a href="updateAddress.php?id=<?php echo $addressDetail['id'];?>" class="p-5">Modifier</a>
+    <a href="updateAddress.php?id=<?php echo $addressDetail['id']; ?>" class="p-5">Modifier</a>
   </div>
   <div>
     <button>Supprimer</button>

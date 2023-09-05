@@ -1,6 +1,9 @@
 <nav class="landing-navbar">
     <div class="nav-logo">
-        <img src="/assets/logo.png" alt="logo" class="logo">
+        <a class="navbar-brand" href="/index.php">
+            <img src="/assets/logo.png" alt="logo" class="logo">
+            Localist
+        </a>
     </div>
     <ul class="nav-list">
         <li><a href="index.php" class="nav-links">Accueil</a></li>
