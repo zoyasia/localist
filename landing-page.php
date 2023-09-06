@@ -44,6 +44,14 @@ try {
   echo "Erreur lors de la récupération de vos adresses favorites";
   exit;
 }
+
+/* GESTION DES CATEGORIES */
+
+require_once 'classes/Category.php';
+
+// Je crée une instance de la classe Category en passant la connexion PDO
+$category = new Category($pdo);
+
 ?>
 
 <br>
@@ -56,14 +64,25 @@ try {
       <div class="card h-100">
         <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
         <div class="card-body">
+
           <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
+
           <?php if ($address['status_id'] === 1) { ?>
             <p class="card-text"><?php echo "À tester"; ?></p>
           <?php } else { ?>
             <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
           <?php } ?>
+
+          <?php
+          $categoryByID = $category->getCategoryByID($address['category_id']);
+          $categoryName = $categoryByID['name'];
+          $categoryColor = $categoryByID['color']; ?>
+          <p class="tag" style="background-color: <?php echo $categoryColor ?>"><?php echo $categoryName; ?></p>
+
           <p class="card-text"><?php echo $address['street']; ?></p>
+
           <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
+
           <a href="addressDetails.php?id=<?php echo $address['id']; ?>">Voir plus</a>
         </div>
       </div>
