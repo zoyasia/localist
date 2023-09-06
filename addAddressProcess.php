@@ -29,7 +29,7 @@ if (isset($_FILES['myFile'])) {
     // on met le fichier dans une variable pour une meilleure lisibilité et j'essaye ensuite d'extraire son nom et son extension pour vérifier que cette dernière fasse partie des extensions autorisées
     $file = $_FILES['myFile'];
     $filename = $file['name'];
-    $fileType= pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
+    $fileType = pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
     $fileSize = $file['size'];
     $allowedFiles = ['jpg', 'png', 'jpeg'];
 
@@ -40,23 +40,20 @@ if (isset($_FILES['myFile'])) {
         echo "Le format du fichier n'est pas compatible.";
     } else {
 
-         // Tout est OK, déplacer le fichier vers l'emplacement souhaité
-         $destination = "uploads/" . $filename; // Répertoire de destination
-                
-         if (move_uploaded_file($file['tmp_name'], $destination)) {
-             echo $filename . " téléchargé avec succès <br />";
-         } else {
-             echo "Erreur lors du téléchargement du fichier.";
-         }
-     }
- } else {
+        // Tout est OK, déplacer le fichier vers l'emplacement souhaité
+        $destination = __DIR__ . "/uploads/" . $filename; // Répertoire de destination
 
-
-
+        if (move_uploaded_file($file['tmp_name'], $destination)) {
+            echo $filename . " téléchargé avec succès <br />";
+        } else {
+            echo "Erreur lors du téléchargement du fichier.";
+        }
+    }
+} else {
     $filename = ""; // Aucun fichier téléchargé
 }
 
-    /* Ancienne version de validation type fichier
+/* Ancienne version de validation type fichier
 
     if(in_array($fileType, $allowedFiles)) {
         echo "le format du fichier est compatible";
@@ -78,18 +75,20 @@ var_dump($file);
 
 
 // Je double-check (en plus des attributs required insérés dans les inputs du formulaire) que les champs requis ne soient pas vides
-if (!empty($addressName)
-&& !empty($category)
-&& !empty($status_id)
-&& !empty($street)
-&& !empty($zipcode)
-&& !empty($city)){
-   
+if (
+    !empty($addressName)
+    && !empty($category)
+    && !empty($status_id)
+    && !empty($street)
+    && !empty($zipcode)
+    && !empty($city)
+) {
+
     try {
         $pdo = getDbConnection();
 
 
-        $stmtInsert = $pdo -> prepare("INSERT INTO addresses(addressName, picture, comment, street, zipcode, city, phone, website, category_id, user_id, status_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmtInsert = $pdo->prepare("INSERT INTO addresses(addressName, picture, comment, street, zipcode, city, phone, website, category_id, user_id, status_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
         $stmtInsert->execute([
@@ -108,13 +107,11 @@ if (!empty($addressName)
 
 
         Utils::redirect("landing-page.php");
-
-
-      } catch (PDOException) {
+    } catch (PDOException) {
         echo "Erreur de connexion à la base de données";
         exit;
-      }
-}else{
+    }
+} else {
     echo "formulaire invalide";
     //Utils::redirect('newAddress.php');
 }

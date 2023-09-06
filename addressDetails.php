@@ -39,6 +39,7 @@ require_once 'classes/Category.php';
 $category = new Category($pdo);
 
 require_once 'layout/header.php';
+
 ?>
 
 <div class="container">
