@@ -23,7 +23,7 @@ $stmt->execute(['id' => $user_id]);
 $profile_id = $stmt->fetchColumn(); // j'ai remplacé le fetchAll qui donnait un tableau de tableau pour simplifier le code
 var_dump($profile_id);
 
-//Requête pour récupérer le profile_id relié à l'user connecté
+//Requête pour récupérer les informations du profil
 $stmtProfile = $pdo->prepare("SELECT * FROM profiles WHERE id=:id");
 $stmtProfile->execute(['id'=>$profile_id]);
 $profileDetails = $stmtProfile->fetch(PDO::FETCH_ASSOC);
