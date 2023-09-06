@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 html, body {
     margin: 0;
     padding: 0;
@@ -137,4 +138,9 @@ justify-content: space-between;
     width: fit-content;
     color: white;
     border-radius: 2px;
+}
+
+/* MESSAGES ERREUR OU VALIDATION */
+.success{
+    color: #5E8C61;
 }

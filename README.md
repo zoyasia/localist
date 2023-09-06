@@ -58,3 +58,4 @@ DELIMITER ;
 ## LANDING PAGE 
 
 Ajouter un filtre par catégorie / statut
+vérifier les chemins relatifs / absolus
