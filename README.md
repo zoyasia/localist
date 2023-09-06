@@ -32,8 +32,29 @@ faire en sorte que si aucune donnée n'est entrée dans un champs, alors on cons
 
 
 ## Upload de fichiers
-faire la deuxième partie pour enregistrer correctement le fichier
+Problèmes de permissions: le dossier uploads dans lequel je cherchais à enregistrer les fichiers avait pour propriétaire root et pour droits d'accès:
+En modifiant le propriétaire du dossier (www-data) et les droits (766), l'upload fonctionne.
 
+Vérifier les doublons ?
+
+## Edition de profil
+Pour générer automatiquement un profile_id dans ma table users qui soit identique à l'id de ma table profile, j'ai créé un trigger dans ma table users:
+DELIMITER //
+CREATE TRIGGER assign_profile_id BEFORE INSERT ON users
+FOR EACH ROW
+BEGIN
+  IF NEW.profile_id IS NULL THEN
+    INSERT INTO profiles (id) VALUES (NULL);
+    SET NEW.profile_id = LAST_INSERT_ID();
+  END IF;
+END;
+//
+DELIMITER ;
+
+
+
+
+
+## LANDING PAGE 
 
 Ajouter un filtre par catégorie / statut
-update addressprocess : ne renvoit pas l'id lors de la redirection, donc not found
