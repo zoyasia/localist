@@ -35,37 +35,43 @@ if ($profileDetails === false) {
     exit;
 }
 
+//Requête pour récupérer les infos du user
+$stmtUser = $pdo->prepare("SELECT * FROM users WHERE id=:id");
+$stmtUser->execute(['id' => $user_id]);
+$userDetails = $stmtUser->fetch(PDO::FETCH_ASSOC);
+var_dump($userDetails);
+
 ?>
 <div class="container">
     <h1>Mes informations</h1>
     <br>
-    <form action="updateProfile.php" method="POST" enctype='multipart/form-data'>
+    <form action="updateProfile.php" method="POST">
 
-    <div class="form-input">
-        <h2>Mon profil</h2>
-        <br>
-        <div>
-            <label for="username">Pseudo:</label>
-            <input type="text" name="username" value="<?php echo $profileDetails['username']; ?>">
+        <div class="form-input">
+            <h2>Mon profil</h2>
+            <br>
+            <div>
+                <label for="username">Pseudo:</label>
+                <input type="text" name="username" value="<?php echo $profileDetails['username']; ?>">
+            </div>
+            <br>
+            <div>
+                <label for="city">Ville:</label>
+                <input type="text" name="city" value="<?php echo $profileDetails['city']; ?>">
+            </div>
+            <br>
+            <div>
+                <label for="bio">Bio:</label>
+                <input type="text" name="bio" value="<?php echo $profileDetails['bio']; ?>">
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Modifier">
+                <?php if (isset($_GET['success']) && $_GET['success'] == 1) { ?>
+                    <p class="success"><?php echo "Profil modifié avec succès" ?></p>
+                <?php } ?>
+            </div>
         </div>
-        <br>
-        <div>
-            <label for="city">Ville:</label>
-            <input type="text" name="city" value="<?php echo $profileDetails['city']; ?>">
-        </div>
-        <br>
-        <div>
-            <label for="bio">Bio:</label>
-            <input type="text" name="bio" value="<?php echo $profileDetails['bio']; ?>">
-        </div>
-        <br>
-        <div>
-            <input type="submit" value="Modifier">
-            <?php if (isset($_GET['success']) && $_GET['success'] == 1) { ?>
-                <p class="success"><?php echo "Profil modifié avec succès" ?></p>
-            <?php } ?>
-        </div>
-    </div>
     </form>
 
 
@@ -74,10 +80,34 @@ if ($profileDetails === false) {
     <div class="form-input">
         <h2>Mon compte</h2>
         <br>
-        <p>Prénom:</p>
-        <p>Nom:</p>
-        <p>Email:</p>
-        <p>Mot de passe:</p>
+        <form action="updateAccount.php" method="POST"'>
+        <div>
+            <label for="firstname">Prénom:</label>
+            <input type="text" name="firstname" value="<?php echo $userDetails['firstname']; ?>">
+        </div>
+        <div>
+            <label for="lastname">Nom:</label>
+            <input type="text" name="lastname" value="<?php echo $userDetails['lastname']; ?>">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" name="email" value="<?php echo $userDetails['email']; ?>">
+        </div>
+        <div>
+            <label for="pwd">Mot de passe:</label>
+            <input type="text" name="pwd" value="<?php echo $userDetails['pwd']; ?>">
+        </div>
+        <div>
+            <label for="pwdconf">Confirmer le mot de passe:</label>
+            <input type="text" name="pwdconf" value="<?php echo $userDetails['pwd']; ?>">
+        </div>
+        <div>
+            <input type="submit" value="Modifier">
+            <?php if (isset($_GET['success']) && $_GET['success'] == 2) { ?>
+                <p class="success"><?php echo "Vos informations personnelles ont été modifiées avec succès" ?></p>
+            <?php } ?>
+        </div>
+        </form>
     </div>
 
 </div>

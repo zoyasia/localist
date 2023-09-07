@@ -9,20 +9,21 @@ var_dump($_SESSION);
 $userId = $_SESSION['user_id'];
 var_dump($userId);
 
-
-// Récupération des données du formulaire d'update de profil
+// Récupération des données du formulaire d'update des infos perso du compte
 [
-    'username' => $username,
-    'city' => $city,
-    'bio' => $bio,
+    'firstname' => $firstname,
+    'lastname' => $lastname,
+    'email' => $email,
+    'pwd' => $pwd,
+    'pwdconf' => $pwdconf,
 ] = $_POST;
 
 var_dump($_POST);
 
 if (
-    !empty($username)
-    || !empty($city)
-    || !empty($bio)
+    !empty($firstname)
+    || !empty($lastname)
+    || !empty($email)
 ) {
 
     try {
