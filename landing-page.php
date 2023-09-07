@@ -1,6 +1,8 @@
 <?php
 require_once 'layout/header.php';
 
+/* GESTION DES UTILISATEURS */
+
 if (isset($_SESSION['user_id'])) {
   require_once 'functions/db.php';
 
@@ -29,14 +31,7 @@ if (isset($_SESSION['user_id'])) {
   echo "Vous n'êtes pas connecté.";
 }
 
-// //Afficher les adresses enregistrées par le user connecté
-// $stmtAddress = $pdo->prepare("SELECT * FROM addresses WHERE user_id = ?");
-// $stmtAddress->execute([$user_id]);
-// while ($addressList = $stmtAddress->fetch(PDO::FETCH_ASSOC)){
-//   var_dump($addressList);
-// };
-
-// // var_dump($addressList['addressName']);
+/* GESTION DES ADRESSES */
 
 try {
   $addresses = getAddresses();
@@ -51,44 +46,86 @@ require_once 'classes/Category.php';
 
 // Je crée une instance de la classe Category en passant la connexion PDO
 $category = new Category($pdo);
+$categories = $category->getAllCategories();
+$selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
+
 
 ?>
 
-<br>
+<div>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="landing-page.php">Voir tout</a>
+    </li>
 
-<h2>Mes adresses</h2>
+    <?php
+    foreach ($categories as $cat) {
+      echo '<li class="nav-item">';
+      echo '<a class="nav-link ' . (($selectedCategory == $cat['id']) ? 'active' : '') . '" href="landing-page.php?category=' . $cat['id'] . '">' . $cat['name'] . '</a>';
+      // echo '<a class="nav-link" href="landing-page.php?category=' . $cat['id'] . '">' . $cat['name'] . '</a>';
+      echo '</li>';
+    }
+    echo '</ul>';
 
-<div class="row row-cols-1 row-cols-md-2 g-4 p-4">
-  <?php foreach ($addresses as $address) { ?>
-    <div class="col">
-      <div class="card h-100">
-        <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
-        <div class="card-body">
+    $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
 
-          <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
+    $sql = "SELECT * FROM addresses";
 
-          <?php if ($address['status_id'] === 1) { ?>
-            <p class="card-text"><?php echo "À tester"; ?></p>
-          <?php } else { ?>
-            <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
-          <?php } ?>
+    if ($selectedCategory) {
+      // Si une catégorie est sélectionnée, ajouter une clause WHERE pour filtrer par catégorie
+      $sql .= " WHERE category_id = ?";
+    }
 
-          <?php
-          $categoryByID = $category->getCategoryByID($address['category_id']);
-          $categoryName = $categoryByID['name'];
-          $categoryColor = $categoryByID['color']; ?>
-          <p class="tag" style="background-color: <?php echo $categoryColor ?>"><?php echo $categoryName; ?></p>
+    // Préparer la requête SQL
+    $stmt = $pdo->prepare($sql);
 
-          <p class="card-text"><?php echo $address['street']; ?></p>
+    // Si une catégorie est sélectionnée, j'exécute la requête en passant la catégorie comme paramètre
+    if ($selectedCategory) {
+      $stmt->execute([$selectedCategory]);
+    } else {
+      // Sinon, j'exécute la requête sans paramètre pour afficher tout
+      $stmt->execute();
+    }
 
-          <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
+    $addresses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
 
-          <a href="addressDetails.php?id=<?php echo $address['id']; ?>">Voir plus</a>
+    <br>
+
+    <h2>Mes adresses</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 p-4">
+      <?php foreach ($addresses as $address) { ?>
+        <div class="col">
+          <div class="card h-100">
+            <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
+            <div class="card-body">
+
+              <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
+
+              <?php if ($address['status_id'] === 1) { ?>
+                <p class="card-text"><?php echo "À tester"; ?></p>
+              <?php } else { ?>
+                <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
+              <?php } ?>
+
+              <?php
+              $categoryByID = $category->getCategoryByID($address['category_id']);
+              $categoryName = $categoryByID['name'];
+              $categoryColor = $categoryByID['color']; ?>
+              <p class="tag" style="background-color: <?php echo $categoryColor ?>"><?php echo $categoryName; ?></p>
+
+              <p class="card-text"><?php echo $address['street']; ?></p>
+
+              <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
+
+              <a href="addressDetails.php?id=<?php echo $address['id']; ?>">Voir plus</a>
+            </div>
+          </div>
         </div>
-      </div>
+      <?php } ?>
     </div>
-  <?php } ?>
-</div>
 
-<?php
-require_once 'layout/footer.php';
+
+    <?php
+    require_once 'layout/footer.php';
