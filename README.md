@@ -37,8 +37,13 @@ En modifiant le propriétaire du dossier (www-data) et les droits (766), l'uploa
 
 Vérifier les doublons ?
 
+## Edition/modification d'une adresse
+Il manque l'update du fichier uploadé.
+
+
 ## Edition de profil
 Pour générer automatiquement un profile_id dans ma table users qui soit identique à l'id de ma table profile, j'ai créé un trigger dans ma table users:
+``````
 DELIMITER //
 CREATE TRIGGER assign_profile_id BEFORE INSERT ON users
 FOR EACH ROW
@@ -50,12 +55,12 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-
-
-
+```
+Modification du mot de passe et des infos personnelles réalisées sur la branch account (mergée dans le main).
 
 ## LANDING PAGE 
 
 Ajouter un filtre par catégorie / statut
+trier par date d'ajout, la dernière adresse ajoutée en premier
 vérifier les chemins relatifs / absolus
+si aucune adresse n'est enregistrée, afficher un bouton ajouter une nouvelle addresse
