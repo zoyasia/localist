@@ -5,6 +5,8 @@ html, body {
     padding: 0;
 }
 
+
+
 /* ------- NAVBAR ----- */
 .landing-navbar {
     display: flex;
@@ -103,8 +105,9 @@ justify-content: space-between;
     color: #88040F;
 }
 
-/* MODAL */
 
+
+/* MODAL */
 .modal{
     position:fixed;
     display: flex;
@@ -122,6 +125,8 @@ justify-content: space-between;
     padding: 20px;
 }
 
+
+
 /* FORM */
 .form-input{
     padding: 10px;
@@ -132,6 +137,8 @@ justify-content: space-between;
     font-style: italic;
 }
 
+
+
 /* CARDS */
 .tag {
     padding: 0.4rem 0.6rem 0.4rem;
@@ -140,6 +147,14 @@ justify-content: space-between;
     border-radius: 2px;
 }
 
+.img-fluid {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+
+  
 /* MESSAGES ERREUR OU VALIDATION */
 .success{
     color: #5E8C61;

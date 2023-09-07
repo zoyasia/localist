@@ -67,8 +67,6 @@ $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
     }
     echo '</ul>';
 
-    $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
-
     $sql = "SELECT * FROM addresses";
 
     if ($selectedCategory) {
@@ -96,9 +94,9 @@ $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
 
     <div class="row row-cols-1 row-cols-md-2 g-4 p-4">
       <?php foreach ($addresses as $address) { ?>
-        <div class="col">
-          <div class="card h-100">
-            <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top" alt="photo de l'établissement">
+        <div class="col-md-4">
+          <div class="card mb-4 h-100">
+            <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top img-fluid" alt="photo de l'établissement">
             <div class="card-body">
 
               <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
