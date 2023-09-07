@@ -9,7 +9,8 @@ var_dump($_SESSION);
 $userId = $_SESSION['user_id'];
 var_dump($userId);
 
-// Récupération des données du formulaire d'ajout d'update de profile
+
+// Récupération des données du formulaire d'update de profil
 [
     'username' => $username,
     'city' => $city,
@@ -47,5 +48,4 @@ if (
     }
 } else {
     echo "formulaire invalide";
-    //Utils::redirect('newAddress.php');
 }

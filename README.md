@@ -58,5 +58,4 @@ DELIMITER ;
 ## LANDING PAGE 
 
 Ajouter un filtre par catégorie / statut
-trier par date d'ajout, la dernière adresse ajoutée en premier
 vérifier les chemins relatifs / absolus
