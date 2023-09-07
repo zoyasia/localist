@@ -39,10 +39,10 @@ if ($profileDetails === false) {
 $stmtUser = $pdo->prepare("SELECT * FROM users WHERE id=:id");
 $stmtUser->execute(['id' => $user_id]);
 $userDetails = $stmtUser->fetch(PDO::FETCH_ASSOC);
-var_dump($userDetails);
+//var_dump($userDetails);
 
 ?>
-<div class="container">
+<!-- <div class="container"> -->
     <h1>Mes informations</h1>
     <br>
     <form action="updateProfile.php" method="POST">
@@ -81,34 +81,36 @@ var_dump($userDetails);
         <h2>Mon compte</h2>
         <br>
         <form action="updateAccount.php" method="POST"'>
-        <div>
-            <label for="firstname">Prénom:</label>
-            <input type="text" name="firstname" value="<?php echo $userDetails['firstname']; ?>">
-        </div>
-        <div>
-            <label for="lastname">Nom:</label>
-            <input type="text" name="lastname" value="<?php echo $userDetails['lastname']; ?>">
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" name="email" value="<?php echo $userDetails['email']; ?>">
-        </div>
-        <div>
-            <label for="pwd">Mot de passe:</label>
-            <input type="text" name="pwd" value="<?php echo $userDetails['pwd']; ?>">
-        </div>
-        <div>
-            <label for="pwdconf">Confirmer le mot de passe:</label>
-            <input type="text" name="pwdconf" value="<?php echo $userDetails['pwd']; ?>">
-        </div>
-        <div>
-            <input type="submit" value="Modifier">
-            <?php if (isset($_GET['success']) && $_GET['success'] == 2) { ?>
-                <p class="success"><?php echo "Vos informations personnelles ont été modifiées avec succès" ?></p>
-            <?php } ?>
-        </div>
+            <div>
+                <label for="firstname">Prénom:</label>
+                <input type="text" name="firstname" value="<?php echo $userDetails['firstname']; ?>">
+            </div>
+            <div>
+                <label for="lastname">Nom:</label>
+                <input type="text" name="lastname" value="<?php echo $userDetails['lastname']; ?>">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="<?php echo $userDetails['email']; ?>">
+            </div>
+            <div>
+                <label for="newpwd">Modifier le mot de passe:</label>
+                <input type="password" name="newpwd">
+            </div>
+            <div>
+                <label for="newpwdconf">Confirmer la modification du mot de passe:</label>
+                <input type="password" name="newpwdconf" placeholder="Saisir un mot de passe identique">
+            </div>
+            <div>
+                <input type="submit" value="Modifier">
+                <?php if (isset($_GET['success']) && $_GET['success'] == 2) { ?>
+                    <p class="success"><?php echo "Vos informations personnelles ont été modifiées avec succès" ?></p>
+                <?php } ?>
+            </div>
         </form>
-    </div>
+    <!-- </div> -->
+
+    <a href="landing-page.php">Retour à ma liste d'adresses</a>
 
 </div>
 

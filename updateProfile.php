@@ -48,5 +48,4 @@ if (
     }
 } else {
     echo "formulaire invalide";
-    //Utils::redirect('newAddress.php');
 }

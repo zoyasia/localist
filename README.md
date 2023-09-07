@@ -59,3 +59,4 @@ DELIMITER ;
 
 Ajouter un filtre par catégorie / statut
 vérifier les chemins relatifs / absolus
+si aucune adresse n'est enregistrée, afficher un bouton ajouter une nouvelle addresse

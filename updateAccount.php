@@ -14,8 +14,8 @@ var_dump($userId);
     'firstname' => $firstname,
     'lastname' => $lastname,
     'email' => $email,
-    'pwd' => $pwd,
-    'pwdconf' => $pwdconf,
+    'newpwd' => $newpwd,
+    'newpwdconf' => $newpwdconf,
 ] = $_POST;
 
 var_dump($_POST);
@@ -24,30 +24,37 @@ if (
     !empty($firstname)
     || !empty($lastname)
     || !empty($email)
+    || (!empty($newpwd) && !empty($newpwdconf) && ($newpwd === $newpwdconf))
 ) {
 
     try {
         $pdo = getDbConnection();
 
-        //Requête pour récupérer le profile_id relié à l'user connecté
-        $stmt = $pdo->prepare("SELECT profile_id FROM users WHERE id=:id");
-        $stmt->execute(['id' => $userId]);
-        $profile_id = $stmt->fetchColumn();
+        // Vérifie si un nouveau mot de passe a été fourni
+        if (!empty($newpwd)) {
+            // Hachage du nouveau mot de passe
+            $hashedPwd = password_hash($newpwd, PASSWORD_DEFAULT);
 
-        $stmtUpdate = $pdo->prepare("UPDATE profiles SET username = ?, city = ?, bio = ? WHERE id = ?");
+        $stmtUpdate = $pdo->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, pwd = ? WHERE id = ?");
         $stmtUpdate->execute([
-            $username,
-            $city,
-            $bio,
-            $profile_id
+            $firstname,
+            $lastname,
+            $email,
+            $hashedPwd,
+            $userId
         ]);
-        Utils::redirect("profile.php?success=1");
+    }else{
+        // Met à jour les données de l'utilisateur sans modifier le mot de passe
+        $stmtUpdate = $pdo->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ? WHERE id = ?");
+        $stmtUpdate->execute([$firstname, $lastname, $email, $userId]);
+    }
 
+    Utils::redirect("profile.php?success=2");
+    
     } catch (PDOException) {
         echo "Erreur de connexion à la base de données";
         exit;
     }
 } else {
-    echo "formulaire invalide";
-    //Utils::redirect('newAddress.php');
+    echo "Formulaire invalide";
 }
