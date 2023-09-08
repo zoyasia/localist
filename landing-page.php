@@ -67,63 +67,84 @@ $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
     }
     echo '</ul>';
 
-    $sql = "SELECT * FROM addresses";
 
+
+    $sql = "SELECT * FROM addresses WHERE user_id = ?";
+
+    // Si une catégorie est sélectionnée, je filtre les adresses pour ne renvoyer que cette catégorie
     if ($selectedCategory) {
-      // Si une catégorie est sélectionnée, ajouter une clause WHERE pour filtrer par catégorie
-      $sql .= " WHERE category_id = ?";
+      $sql .= " AND category_id = ?";
     }
 
-    // Préparer la requête SQL
     $stmt = $pdo->prepare($sql);
 
-    // Si une catégorie est sélectionnée, j'exécute la requête en passant la catégorie comme paramètre
+    // j'initialise un tableau où stocker les paramètres nécessaires à ma requête SQL
+    $params = [$user_id];
+
+    // Si une catégorie est sélectionnée, j'ajoute la catégorie aux paramètres
     if ($selectedCategory) {
-      $stmt->execute([$selectedCategory]);
-    } else {
-      // Sinon, j'exécute la requête sans paramètre pour afficher tout
-      $stmt->execute();
+      $params[] = $selectedCategory;
     }
+
+    $stmt->execute($params);
+
+    // VERSION NON FONCTIONNELLE
+    // $sql = "SELECT * FROM addresses";
+    // if ($selectedCategory) {
+    //   $sql .= " WHERE category_id = ?";
+    // }
+    // $stmt = $pdo->prepare($sql);
+    // if ($selectedCategory) {
+    //   $stmt->execute([$selectedCategory]);
+    // } else {
+    //   $stmt->execute();
+    // }
 
     $addresses = $stmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
     <br>
-
     <h2>Mes adresses</h2>
+    <br>
 
-    <div class="row row-cols-1 row-cols-md-2 g-4 p-4">
-      <?php foreach ($addresses as $address) { ?>
-        <div class="col-md-4">
-          <div class="card mb-4 h-100">
-            <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top img-fluid" alt="photo de l'établissement">
-            <div class="card-body">
+    <?php if (empty($addresses)) { ?>
+      <div>
+        <a href="#">J'ajoute ma première adresse !</a>
+      </div>
+    <?php } else { ?>
 
-              <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
+      <div class="row row-cols-1 row-cols-md-2 g-4 p-4">
+        <?php foreach ($addresses as $address) { ?>
+          <div class="col-md-4">
+            <div class="card mb-4 h-100">
+              <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top img-fluid" alt="photo de l'établissement">
+              <div class="card-body">
 
-              <?php if ($address['status_id'] === 1) { ?>
-                <p class="card-text"><?php echo "À tester"; ?></p>
-              <?php } else { ?>
-                <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
-              <?php } ?>
+                <h5 class="card-title"><?php echo $address['addressName']; ?></h5>
 
-              <?php
-              $categoryByID = $category->getCategoryByID($address['category_id']);
-              $categoryName = $categoryByID['name'];
-              $categoryColor = $categoryByID['color']; ?>
-              <p class="tag" style="background-color: <?php echo $categoryColor ?>"><?php echo $categoryName; ?></p>
+                <?php if ($address['status_id'] === 1) { ?>
+                  <p class="card-text"><?php echo "À tester"; ?></p>
+                <?php } else { ?>
+                  <p class="card-text"><?php echo "Testé & approuvé"; ?></p>
+                <?php } ?>
 
-              <p class="card-text"><?php echo $address['street']; ?></p>
+                <?php
+                $categoryByID = $category->getCategoryByID($address['category_id']);
+                $categoryName = $categoryByID['name'];
+                $categoryColor = $categoryByID['color']; ?>
+                <p class="tag" style="background-color: <?php echo $categoryColor ?>"><?php echo $categoryName; ?></p>
 
-              <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
+                <p class="card-text"><?php echo $address['street']; ?></p>
 
-              <a href="addressDetails.php?id=<?php echo $address['id']; ?>">Voir plus</a>
+                <p class="card-text"><?php echo $address['zipcode'] . " " . $address['city']; ?></p>
+
+                <a href="addressDetails.php?id=<?php echo $address['id']; ?>">Voir plus</a>
+              </div>
             </div>
           </div>
-        </div>
-      <?php } ?>
-    </div>
+        <?php } ?>
+      </div>
+    <?php }
 
 
-    <?php
     require_once 'layout/footer.php';
