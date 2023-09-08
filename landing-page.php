@@ -117,7 +117,11 @@ $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
         <?php foreach ($addresses as $address) { ?>
           <div class="col-md-4">
             <div class="card mb-4 h-100">
-              <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top img-fluid" alt="photo de l'établissement">
+
+              <?php if (!empty($address['picture'])) { ?>
+                <img src="uploads/<?php echo $address['picture']; ?>" class="card-img-top img-fluid" alt="photo de l'établissement">
+              <?php } ?>
+              
               <div class="card-body">
 
                 <h5 class="card-title"><?php echo $address['addressName']; ?></h5>

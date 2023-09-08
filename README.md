@@ -1,6 +1,10 @@
 # Localist
 
 Carnet d'adresses en ligne où regrouper ses restaurants, cafés, bars et boutiques préférés, déjà testés ou à découvrir.
+Pour conserver vos spots favoris, il vous suffit de vous inscrire en deux temps trois mouvements. 
+Il est possible d’enrichir son profil d’un pseudo, d’une bio et de sa ville de résidence, de modifier et supprimer son compte.
+
+
 
 ## Configuration
 
@@ -38,10 +42,15 @@ En modifiant le propriétaire du dossier (www-data) et les droits (766), l'uploa
 Vérifier les doublons ?
 
 ## Edition/modification d'une adresse
-Il manque l'update du fichier uploadé.
+Lors de l’ajout d’une adresse, vous êtes invité à renseigner son nom, sa localisation, sa catégorie et son statut, et vous êtes libre de renseigner un commentaire à son sujet, un numéro de téléphone, un site, et de télécharger une photo d’illustration. 
+LEs informations d’une adresse peuvent être mises à jour (changer d’avis, changer de statut par exemple), une adresse peut également être supprimée.
+
+Il manque l'update de fichier.
 
 
 ## Edition de profil
+Il est possible d’enrichir son profil d’un pseudo, d’une bio et de sa ville de résidence, de modifier et supprimer son compte.
+
 Pour générer automatiquement un profile_id dans ma table users qui soit identique à l'id de ma table profile, j'ai créé un trigger dans ma table users:
 ``````
 DELIMITER //
@@ -60,7 +69,31 @@ Modification du mot de passe et des infos personnelles réalisées sur la branch
 
 ## LANDING PAGE 
 
-Ajouter un filtre par catégorie / statut
-trier par date d'ajout, la dernière adresse ajoutée en premier
-vérifier les chemins relatifs / absolus
-si aucune adresse n'est enregistrée, afficher un bouton ajouter une nouvelle addresse
+Lorsque le client se connecte, j’ai souhaité intégrer un filtre à sa page d’accueil pour gérer l’affichage de ses adresses enregistrées: voir tout, ou seulement les adresses triées par catégories.
+J’ai eu des difficultés au départ dans cet affichage car il y avait un conflit entre ma fonction getAllCategories et ma fonction getAddresses. getAllCategories prenait le pas sur la seconde, et faisait apparaître toutes les adresses d’une catégorie, même celles qui n’étaient pas reliées à l’utilisateur connecté.
+J’ai trouvé un cas assez proche sur StackOverFlow qui préconisait de stocker dans une variable $params un tableau de paramètres à prendre en compte dans la requête:
+
+```
+$sql = "SELECT * FROM addresses WHERE user_id = ?";
+if ($selectedCategory) {
+  $sql .= " AND category_id = ?";
+}
+$stmt = $pdo->prepare($sql);
+$params = [$user_id];
+
+
+if ($selectedCategory) {
+  $params[] = $selectedCategory;
+}
+
+```
+
+Si aucune adresse n'est enregistrée (dans toute la table addresses, ou dans une catégorie), j’affiche un bouton “ajouter une nouvelle adresse”.
+
+Améliorations envisagées:
+trier par date d'ajout, du plus récent au plus ancien, le dernier id d'adresse enregistré apparaîtrait alors en premier dans la liste.
+vérifier les chemins relatifs / absolus.
+
+
+
+
