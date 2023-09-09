@@ -85,7 +85,7 @@ $file = "";
 
 
 var_dump($_POST);
-var_dump($file);
+//var_dump($file);
 
 
 //VALIDATION zipcode = 5 chiffres + tel
@@ -125,6 +125,7 @@ if (
 
         Utils::redirect("landing-page.php");
     } catch (PDOException) {
+        http_response_code(500);
         echo "Erreur de connexion à la base de données";
         exit;
     }
