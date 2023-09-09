@@ -25,6 +25,22 @@ var_dump($user);
 ] = $_POST;
 
 
+require_once 'classes/Picture.php';
+
+if (isset($_FILES['myFile'])) {
+    $picture = new Picture($_FILES['myFile']);
+    $destination = __DIR__ . "/uploads/" . $picture->getFileName();
+
+    $result = $picture->moveUploadedFile($destination);
+
+    echo $result . "<br />";
+} else {
+    $filename = ""; // Aucun fichier téléchargé
+}
+
+
+/* CODE VALIDE POUR VERIFICATION UPLOAD
+
 if (isset($_FILES['myFile'])) {
     // on met le fichier dans une variable pour une meilleure lisibilité et j'essaye ensuite d'extraire son nom et son extension pour vérifier que cette dernière fasse partie des extensions autorisées
     $file = $_FILES['myFile'];
@@ -52,6 +68,7 @@ if (isset($_FILES['myFile'])) {
 } else {
     $filename = ""; // Aucun fichier téléchargé
 }
+*/ 
 
 /* Ancienne version de validation type fichier
 
