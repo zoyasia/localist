@@ -43,44 +43,44 @@ $userDetails = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
 ?>
 <!-- <div class="container"> -->
-    <h1>Mes informations</h1>
-    <br>
-    <form action="updateProfile.php" method="POST">
+<h1>Mes informations</h1>
 
-        <div class="form-input">
-            <h2>Mon profil</h2>
-            <br>
-            <div>
-                <label for="username">Pseudo:</label>
-                <input type="text" name="username" value="<?php echo $profileDetails['username']; ?>">
-            </div>
-            <br>
-            <div>
-                <label for="city">Ville:</label>
-                <input type="text" name="city" value="<?php echo $profileDetails['city']; ?>">
-            </div>
-            <br>
-            <div>
-                <label for="bio">Bio:</label>
-                <input type="text" name="bio" value="<?php echo $profileDetails['bio']; ?>">
-            </div>
-            <br>
-            <div>
-                <input type="submit" value="Modifier">
-                <?php if (isset($_GET['success']) && $_GET['success'] == 1) { ?>
-                    <p class="success"><?php echo "Profil modifié avec succès" ?></p>
-                <?php } ?>
-            </div>
-        </div>
-    </form>
-
-
-    <br>
+<form action="updateProfile.php" method="POST">
 
     <div class="form-input">
-        <h2>Mon compte</h2>
+        <h2>Mon profil</h2>
         <br>
-        <form action="updateAccount.php" method="POST"'>
+        <div>
+            <label for="username">Pseudo:</label>
+            <input type="text" name="username" value="<?php echo $profileDetails['username']; ?>">
+        </div>
+        <br>
+        <div>
+            <label for="city">Ville:</label>
+            <input type="text" name="city" value="<?php echo $profileDetails['city']; ?>">
+        </div>
+        <br>
+        <div>
+            <label for="bio">Bio:</label>
+            <input type="text" name="bio" value="<?php echo $profileDetails['bio']; ?>">
+        </div>
+        <br>
+        <div>
+            <input type="submit" value="Modifier">
+            <?php if (isset($_GET['success']) && $_GET['success'] == 1) { ?>
+                <p class="success"><?php echo "Profil modifié avec succès" ?></p>
+            <?php } ?>
+        </div>
+    </div>
+</form>
+
+
+<br>
+
+<div class="form-input">
+    <h2>Mon compte</h2>
+    <br>
+    <form action="updateAccount.php" method="POST"'>
             <div>
                 <label for="firstname">Prénom:</label>
                 <input type="text" name="firstname" value="<?php echo $userDetails['firstname']; ?>">
@@ -108,7 +108,12 @@ $userDetails = $stmtUser->fetch(PDO::FETCH_ASSOC);
                 <?php } ?>
             </div>
         </form>
-    <!-- </div> -->
+
+        <div>
+            <a href="<?php echo 'deleteAccount.php?did=' . $user_id ?>" class="delete-btn">Supprimer mon compte (cette action est irréversible)</a>
+        </div>
+
+    <br>
 
     <a href="landing-page.php">Retour à ma liste d'adresses</a>
 

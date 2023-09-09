@@ -101,6 +101,7 @@ $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
     // }
 
     $addresses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     ?>
 
     <br>

@@ -81,7 +81,7 @@ require_once 'layout/header.php';
     <a href="updateAddress.php?id=<?php echo $addressDetail['id']; ?>" class="p-5">Modifier</a>
   </div>
   <div>
-    <a href="<?php echo 'delete.php?did=' . $id ?>">Supprimer cette adresse (cette action est définitive)</a>
+    <a href="<?php echo 'deleteAddress.php?did=' . $id ?>">Supprimer cette adresse (cette action est définitive)</a>
   </div>
 </div>
 

@@ -160,3 +160,13 @@ justify-content: space-between;
 .success{
     color: #5E8C61;
 }
+
+.error{
+    color: #88040F;
+}
+
+/* PROFILE */
+.delete-btn{
+    background-color: #DFBE99;
+    color: #88040F;
+}

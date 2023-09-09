@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/layout/header.php';
 require_once 'functions/db.php';
 
 if (isset($_GET['did'])) {
@@ -7,10 +8,8 @@ if (isset($_GET['did'])) {
     try {
         $pdo = getDbConnection();
 
-        // Utilisez une requête préparée pour la suppression
         $stmt = $pdo->prepare("DELETE FROM addresses WHERE id = :id");
-
-        // Exécutez la requête préparée en spécifiant les valeurs des paramètres dans un tableau
+        
         $result = $stmt->execute(['id' => $delete_id]);
 
         if ($result !== false) {
@@ -25,3 +24,5 @@ if (isset($_GET['did'])) {
     }
 }
 ?>
+
+<a href="<?php echo '/landing-page.php' ?>">Retour aux adresses enregistrées</a>
