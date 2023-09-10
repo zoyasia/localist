@@ -34,17 +34,22 @@ J'ai configuré dans mon php.ini la taille maximale d'upload de fichier (3Mo) et
 ## INSCRIPTION
 - [register.php : Formulaire d'inscription](register.php)
 - [registerProcess.php : Traitement de l'inscription](registerProcess.php)
-- [UserRegistration.php : classe utilisée pour la validation des données](classes/UserRegistration.php)
-
+- [UserRegistration.php : classe utilisée pour la validation des données](classes/UserRegistration.php)  
 J'ai passé pas mal de temps à réfléchir où gérer la validation des données du formulaire d'inscription, pour finalement créer un classe UserRegistration. Au départ, je suis partie sur une classe avec des attributs et des méthodes publics. En reprenant le cours, je me suis demandé si j'allais vraiment vouloir instancier des objets de cette classe, à priori non, je suis donc PARTIE sur des méthodes statiques.
-J'ai également bloqué un peu bêtement sur la validation de l'email, je voulais vérifier deux choses (validité du format & présence éventuelle de cet amil dans la bdd) et afficher deux messages d'erreur différents à partir de l'email récupéré dans le $_POST. Je ne voulais pas créer de conflit entre les deux validations, j'ai sollicité chatGPT :/ pour relire mon code et je n'avais tout simplement pas pensé à insérer un tableau dans mon tableau d'erreur et à créer des "sous-erreurs".
+J'ai également bloqué un peu bêtement sur la validation de l'email, je voulais vérifier deux choses (validité du format & présence éventuelle de cet amil dans la bdd) et afficher deux messages d'erreur différents à partir de l'email récupéré dans le $_POST. Je ne voulais pas créer de conflit entre les deux validations, j'ai sollicité chatGPT :/ pour relire mon code et je n'avais tout simplement pas pensé à insérer un tableau dans mon tableau d'erreur et à créer des "sous-erreurs".  
+**_ Améliorations envisagées:_**  
+- créer des contraintes pour le mot de passe, vérifiées par une regex par exemple.
 
 ## CONNEXION
-_Erreur rencontrée:_ Lorsque je testais mon formulaire de connexion en entrant un mail et un mot de passe existant dans ma base de données, déjà affectés à un user, je ne parvenais jamais à me connecter. Mes var_dump du mot de passe en clair et du mot de passe haché correspondaient pourtant aux valeurs entrées dans ma db. J'ai d'abord pensé qu'il s'agissait d'un problème lors du hashage ou du dé-hashage du mot de passe, et j'ai enfin découvert que le problème venait de la configuration de ma base de données : ma colonne pwd était un varchar(45) alors que le hachage est bien plus long (60 caractères). J'ai appris qu'il était recommandé d'opter pour un varchar(255) pour stocker un mdo haché en base de donnée.
-**_ Améliorations envisagées:_**
-Vérifier les doublons d'adresse email.
+- [login.php: formulaire de connexion](login.php)
+- [auth.php : traitement du formulaire de connexion](auth.php)
+- [logout.php: traitement du lien de déconnexion de la navbar](logout.php)  
+_Erreur rencontrée:_ Lorsque je testais mon formulaire de connexion en entrant un mail et un mot de passe existant dans ma base de données, déjà affectés à un user, je ne parvenais jamais à me connecter. Mes var_dump du mot de passe en clair et du mot de passe haché correspondaient pourtant aux valeurs entrées dans ma db. J'ai d'abord pensé qu'il s'agissait d'un problème lors du hashage ou du dé-hashage du mot de passe, et j'ai enfin découvert que le problème venait de la configuration de ma base de données : ma colonne pwd était un varchar(45) alors que le hachage est bien plus long (60 caractères). J'ai appris qu'il était recommandé d'opter pour un varchar(255) pour stocker un mdo haché en base de données.
 
-## UPLOAD DE FICHIERS
+## UPLOAD DE FICHIERS  
+- [newAddress.php: formulaire d'ajout d'une nouvelle adresse](newAddress.php)
+- [uploads: dossier de destination des fichiers uploadés](uploads)
+- [Picture.php: classe utilisée pour valider la conformité de l'upload](Picture.php)  
 _Problème rencontré:_ Problèmes de permissions: le dossier uploads dans lequel je cherchais à enregistrer les fichiers avait pour propriétaire root et pour droits d'accès:
 En modifiant le propriétaire du dossier (www-data) et les droits (766), l'upload fonctionne.
 
@@ -104,6 +109,10 @@ Vérifier les doublons.
 
 
 ## EDITION/MODIFICATION D'UNE ADRESSE
+- [addressDetails.php: Vue détaillée d' une adresse](addressDetails.php)
+- [updateAddress.php: formulaire de maj de l'adresse](updateAddress.php)
+- [updateAddressProcess.php: traitement du formulaire de maj de l'adresse](updateAddressProcess.php)  
+
 Lors de l’ajout d’une adresse, vous êtes invité à renseigner son nom, sa localisation, sa catégorie et son statut, et vous êtes libre de renseigner un commentaire à son sujet, un numéro de téléphone, un site, et de télécharger une photo d’illustration. 
 Les informations d’une adresse peuvent être mises à jour (changer d’avis, changer de statut par exemple), une adresse peut également être supprimée.
 
@@ -113,12 +122,20 @@ Raisonnement/ méthodo pour la modification d'une adresse existante
 3- Etablir la connexion à la bdd avec un try catch
 4- reprendre le formulaire newAddress
 faire en sorte que si aucune donnée n'est entrée dans un champs, alors on conserve la donnée précédemment connue.
-5- bouton valider modifie la base de données
+5- bouton valider modifie la base de données  
 
-Il manque la possibilité de modifier le fichier uploadé.
+**_ Améliorations envisagées:_**
+Il manque la possibilité de modifier le fichier précédemment uploadé.  
+Cheminement envisagé:
+- Supprimer ancien fichier dans le dossier de destination.
+- même procédure de validation que celle mentionnée plus haut (upload de fichiers).
+- update de la bdd avec le nouveau name du fichier uploadé.
 
 
 ## EDITION DE PROFIL
+- [profile.php: affichage du profil](profile.php)
+- [updateProfile.php: formulaire de maj du profil](updateProfile.php)
+- [updateAccount.php: formulaire de maj du compte](updateAccount.php)
 Il est possible d’enrichir son profil d’un pseudo, d’une bio et de sa ville de résidence, de modifier et supprimer son compte.
 
 Pour générer automatiquement un profile_id dans ma table users qui soit identique à l'id de ma table profile, j'ai créé un trigger dans ma table users:
@@ -138,6 +155,7 @@ DELIMITER ;
 Modification du mot de passe et des infos personnelles réalisées sur la branch account (mergée dans le main).
 
 ## LANDING PAGE 
+- [landing-page.php: page d'accueil de l'utilisateur connecté](landing-page.php)
 
 Lorsque le client se connecte, j’ai souhaité intégrer un filtre à sa page d’accueil pour gérer l’affichage de ses adresses enregistrées: voir tout, ou seulement les adresses triées par catégories.
 J’ai eu des difficultés au départ dans cet affichage car il y avait un conflit entre ma fonction getAllCategories et ma fonction getAddresses. getAllCategories prenait le pas sur la seconde, et faisait apparaître toutes les adresses d’une catégorie, même celles qui n’étaient pas reliées à l’utilisateur connecté.
@@ -163,6 +181,8 @@ Si aucune adresse n'est enregistrée (dans toute la table addresses, ou dans une
 Trier les adresses par date d'ajout, de la plus récente à la plus ancienne, le dernier id d'adresse enregistré apparaîtrait alors en premier dans la liste.
 
 ## DELETE
+- [deleteAccount.php: traitement du lien de suppression présent dans profile.php](deleteAccount.php)
+- [deleteAddress.php: traitement du lien de suppression présent dans addressDetails.php](deleteAddress.php)  
 
 *_Améliorations envisagées:_* 
 Intégrer une fenêtre popup “êtes-vous sûr.e de vouloir supprimer votre compte?”.
