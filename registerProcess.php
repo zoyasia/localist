@@ -1,7 +1,7 @@
 <?php
 
-require_once 'functions/db.php';
-require_once 'classes/Utils.php';
+require_once __DIR__ . '/functions/db.php';
+require_once __DIR__ . '/classes/Utils.php';
 
 // Récupération d'une instance de PDO
 try {

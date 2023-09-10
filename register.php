@@ -1,5 +1,5 @@
 <?php
-require_once 'layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 ?>
 
 <h1>Inscription</h1>
@@ -32,4 +32,4 @@ require_once 'layout/header.php';
 
 <a href="index.php">Retour à l'accueil</a>
 
-<?php require_once 'layout/footer.php';
+<?php require_once __DIR__ . '/layout/footer.php';

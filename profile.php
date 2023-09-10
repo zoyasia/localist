@@ -1,12 +1,12 @@
 <?php
 
-require_once 'layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 //var_dump($_SESSION);
 $user_id = $_SESSION['user_id'];
 //var_dump($user_id);
 
-require_once 'functions/db.php';
+require_once __DIR__ . '/functions/db.php';
 
 //Connexion à la base de données
 try {
@@ -102,7 +102,7 @@ $userDetails = $stmtUser->fetch(PDO::FETCH_ASSOC);
                 <input type="password" name="newpwdconf" placeholder="Saisir un mot de passe identique">
             </div>
             <div>
-                <input type="submit" value="Modifier">
+                <input type="submit" value="Modifier" class="modify-btn">
                 <?php if (isset($_GET['success']) && $_GET['success'] == 2) { ?>
                     <p class="success"><?php echo "Vos informations personnelles ont été modifiées avec succès" ?></p>
                 <?php } ?>
@@ -119,6 +119,4 @@ $userDetails = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
 </div>
 
-
-
-<?php require_once 'layout/footer.php';
+<?php require_once __DIR__ . '/layout/footer.php';

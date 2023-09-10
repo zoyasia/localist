@@ -1,13 +1,13 @@
 <?php
 
-require_once 'functions/db.php';
-require_once 'classes/Utils.php';
+require_once __DIR__ . '/functions/db.php';
+require_once __DIR__ . '/classes/Utils.php';
 
 session_start();
-var_dump($_SESSION);
+//var_dump($_SESSION);
 // je récupère l'id de la session pour lier l'adresse à ajouter à cet utilisateur.
 $userId = $_SESSION['user_id'];
-var_dump($userId);
+//var_dump($userId);
 
 
 // Récupération des données du formulaire d'update de profil
@@ -16,8 +16,6 @@ var_dump($userId);
     'city' => $city,
     'bio' => $bio,
 ] = $_POST;
-
-var_dump($_POST);
 
 if (
     !empty($username)
@@ -49,3 +47,6 @@ if (
 } else {
     echo "formulaire invalide";
 }
+
+
+require_once __DIR__ . '/layout/footer.php';

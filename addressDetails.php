@@ -1,5 +1,5 @@
 <?php
-require_once 'functions/db.php';
+require_once __DIR__ . '/functions/db.php';
 
 // je récupère à l'aide de la superglobale $_GET l'id envoyé dans l'url depuis la carte adresse sur landing-page
 
@@ -33,12 +33,12 @@ if ($addressDetail === false) {
 
 /* GESTION DES CATEGORIES */
 
-require_once 'classes/Category.php';
+require_once __DIR__ . '/classes/Category.php';
 
 // Je crée une instance de la classe Category en passant la connexion PDO
 $category = new Category($pdo);
 
-require_once 'layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 ?>
 
@@ -86,4 +86,4 @@ require_once 'layout/header.php';
 </div>
 
 <?php
-require_once 'layout/footer.php';
+require_once __DIR__ . '/layout/footer.php';

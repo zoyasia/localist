@@ -1,5 +1,5 @@
 <?php
-require_once 'layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 // je récupère à l'aide de la superglobale $_GET l'id envoyé dans l'url depuis la carte adresse sur landing-page
 
@@ -10,7 +10,7 @@ if ($id === null) {
     exit;
 }
 
-require_once 'functions/db.php';
+require_once __DIR__ . '/functions/db.php';
 
 //Connexion à la base de données
 try {
@@ -27,9 +27,6 @@ $stmtDetail->execute(['id' => $id]);
 
 $addressDetail = $stmtDetail->fetch(); // renvoit soit l'adresse si elle est trouvée, soit false. Dans ce cas, on envoit un mssg d'erreur 404:
 
-
-var_dump($addressDetail);
-
 if ($addressDetail === false) {
     http_response_code(404);
     echo "Not found";
@@ -37,8 +34,6 @@ if ($addressDetail === false) {
 }
 
 $addressId = $addressDetail['id'];
-
-var_dump($addressId);
 
 ?>
 
@@ -108,3 +103,6 @@ var_dump($addressId);
     </div>
 </form>
 <br>
+
+<?php 
+require_once __DIR__ . '/layout/footer.php';

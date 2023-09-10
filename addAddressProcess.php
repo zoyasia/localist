@@ -1,7 +1,7 @@
 <?php
 
-require_once 'functions/db.php';
-require_once 'classes/Utils.php';
+require_once __DIR__ . '/functions/db.php';
+require_once __DIR__ . '/classes/Utils.php';
 
 
 session_start();
@@ -25,7 +25,7 @@ var_dump($user);
 ] = $_POST;
 
 
-require_once 'classes/Picture.php';
+require_once __DIR__ . '/classes/Picture.php';
 
 if (isset($_FILES['myFile'])) {
     $picture = new Picture($_FILES['myFile']);
@@ -35,64 +35,11 @@ if (isset($_FILES['myFile'])) {
 
     echo $result . "<br />";
 
-
 } else {
     $filename = ""; // Aucun fichier téléchargé
 }
 
 $filename = $picture->getFileName();
-
-/* CODE VALIDE POUR VERIFICATION UPLOAD
-
-if (isset($_FILES['myFile'])) {
-    // on met le fichier dans une variable pour une meilleure lisibilité et j'essaye ensuite d'extraire son nom et son extension pour vérifier que cette dernière fasse partie des extensions autorisées
-    $file = $_FILES['myFile'];
-    $filename = $file['name'];
-    $fileType = pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
-    $fileSize = $file['size'];
-    $allowedFiles = ['jpg', 'png', 'jpeg'];
-
-    // validation de la taille et du type de fichier
-    if ($fileSize > 3 * 1024 * 1024) { // 3 Mo
-        echo "Le fichier est trop volumineux.";
-    } elseif (!in_array($fileType, $allowedFiles)) {
-        echo "Le format du fichier n'est pas compatible.";
-    } else {
-
-        // Tout est OK, déplacer le fichier vers l'emplacement souhaité
-        $destination = __DIR__ . "/uploads/" . $filename; // Répertoire de destination
-
-        if (move_uploaded_file($file['tmp_name'], $destination)) {
-            echo $filename . " téléchargé avec succès <br />";
-        } else {
-            echo "Erreur lors du téléchargement du fichier.";
-        }
-    }
-} else {
-    $filename = ""; // Aucun fichier téléchargé
-}
-*/ 
-
-/* Ancienne version de validation type fichier
-
-    if(in_array($fileType, $allowedFiles)) {
-        echo "le format du fichier est compatible";
-    } else {
-        echo "le format du fichier n'est pas compatible";
-    }
-} else {
-$file = "";
-}
-
-*/
-
-
-var_dump($_POST);
-//var_dump($file);
-
-
-//VALIDATION zipcode = 5 chiffres + tel
-
 
 // Je double-check (en plus des attributs required insérés dans les inputs du formulaire) que les champs requis ne soient pas vides
 if (
@@ -136,32 +83,3 @@ if (
     echo "formulaire invalide";
     //Utils::redirect('newAddress.php');
 }
-
-
-
-
-
-
-//TESTS DE CODE DE VALIDATION
-// $allowedFiles = ['jpg', 'png', 'jpeg'];
-// if(in_array($fileType, $allowedFiles)) {
-//     echo "type ok";
-// } else {
-//     echo "le format du fichier n'est pas compatible";
-// }
-
-
-// if(!empty($_FILES['myFile'])){
-//     //VALIDATION du type de fichier: jpg/png/jpeg.
-// $allowedFiles = ['jpg', 'png', 'jpeg'];
-// //je récupère l'extension et si elle correspond à un élément du tableau $allowedFile, c'est OK.
-// $fileType= pathinfo($_FILES['myFile']['name'], PATHINFO_EXTENSION);
-// var_dump($fileType);
-//     if(in_array($fileType, $allowedFiles)) {
-//         echo "type ok";
-//     } else {
-//         echo "erreur";
-//     }
-// } else {
-//     $myFile = "";
-// }

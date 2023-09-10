@@ -169,4 +169,12 @@ justify-content: space-between;
 .delete-btn{
     background-color: #DFBE99;
     color: #88040F;
+    padding: 0.4rem;
+    border-radius: 0.2rem;
+    margin-top: 0.4rem;
+}
+
+.modify-btn{
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
 }

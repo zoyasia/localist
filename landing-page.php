@@ -1,10 +1,10 @@
 <?php
-require_once 'layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 /* GESTION DES UTILISATEURS */
 
 if (isset($_SESSION['user_id'])) {
-  require_once 'functions/db.php';
+  require_once __DIR__ . '/functions/db.php';
 
   // Récupérer l'identifiant de l'utilisateur à partir de la session
   $user_id = $_SESSION['user_id'];
@@ -42,7 +42,7 @@ try {
 
 /* GESTION DES CATEGORIES */
 
-require_once 'classes/Category.php';
+require_once __DIR__ . '/classes/Category.php';
 
 // Je crée une instance de la classe Category en passant la connexion PDO
 $category = new Category($pdo);
@@ -152,4 +152,4 @@ $selectedCategory = isset($_GET['category']) ? $_GET['category'] : null;
     <?php }
 
 
-    require_once 'layout/footer.php';
+    require_once __DIR__ . '/layout/footer.php';

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/layout/header.php';
-require_once 'functions/db.php';
+require_once __DIR__ . '/functions/db.php';
 
 if (isset($_GET['did'])) {
     $delete_id = $_GET['did'];

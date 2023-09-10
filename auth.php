@@ -1,6 +1,6 @@
 <?php
-require_once 'functions/db.php';
-require_once 'classes/Utils.php';
+require_once __DIR__ . '/functions/db.php';
+require_once __DIR__ . '/classes/Utils.php';
 
 //VALIDATION DES DONNEES A EFFECTUER (format email, conformité passwords, champs non vides etc)
 
@@ -10,9 +10,6 @@ require_once 'classes/Utils.php';
     'pwd' => $pwd
 ] = $_POST;
 
-var_dump($email);
-var_dump($pwd);
-
 // Récupération de la connexion à la base de données
 try {
     $pdo=getDbConnection();
@@ -21,16 +18,12 @@ try {
     exit;
 }
 
-var_dump($pdo);
-
 // Je prépare ma requête SQL
 $stmtUser = $pdo->prepare("SELECT * FROM users WHERE email=:email");
 // j'exécute ma requête
 $stmtUser->execute(['email' => $email]);
 
 $user = $stmtUser->fetch();
-
-var_dump($user);
 
 //je vérifie d'abord la présence de l'utilisateur dans la db, et si je le trouve, je crée une variable qui contient le mdp hashé.
 if ($user === false) {
@@ -39,9 +32,6 @@ if ($user === false) {
   } else {
     $pwdHash = $user['pwd'];
   }
-
-  var_dump($pwdHash);
-  var_dump($pwd);
 
 // les vardump fonctionnent, je récupère bien le mdp en clair et en hash
 
