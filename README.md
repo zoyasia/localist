@@ -24,7 +24,7 @@ Pour plus d'ae commodité, vous pouvez copier la base de donnée carnet_adresse 
 Le MCD initial ainsi que l'arborescence créée en amont du projet sont également disponibles dans ce dossier data.
 - [MCD](data/Localist_MCD.png)
 - [Arborescence](data/Localist_Arbo.png)
-- [BDD]()
+- [BDD](data/carnet_adresse.sql)
 
 Si vous souhaitez avoir un aperçu d'un profil déjà créé, vous pouvez vous connecter avec les identifiants de cette utilisatrice fictive:
 **_Adresse email_**: lena@lena.com
