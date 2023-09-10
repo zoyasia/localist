@@ -23,6 +23,10 @@ Pour plus d'ae commodité, vous pouvez copier la base de donnée carnet_adresse 
 
 Le MCD initial ainsi que l'arborescence créée en amont du projet sont également disponibles dans ce dossier data.
 
+Si vous souhaitez avoir un aperçu d'un profil déjà créé, vous pouvez vous connecter avec les identifiants de cette utilisatrice fictive:
+Adresse email: lena@lena.com
+mot de passe: lena
+
 ## CONFIGURATION PHP
 Dans mon formulaire pour ajouter une nouvelle adresse (méthode POST), je propose d'uploader une image.
 J'ai configuré dans mon php.ini la taille maximale d'upload de fichier (3Mo) et la taille maximale des données POST que mon serveur peut accepter (3Mo).
