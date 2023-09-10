@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/functions/db.php';
 require_once __DIR__ . '/classes/Utils.php';
-require_once __DIR__ . '/classes/User.php';
+require_once __DIR__ . '/classes/UserRegistration.php';
 
 // Récupération d'une instance de PDO
 try {

@@ -32,8 +32,9 @@ Dans mon formulaire pour ajouter une nouvelle adresse (méthode POST), je propos
 J'ai configuré dans mon php.ini la taille maximale d'upload de fichier (3Mo) et la taille maximale des données POST que mon serveur peut accepter (3Mo).
 
 ## INSCRIPTION
-[register.php](https://github.com/zoyasia/localist/blob/9073b16ff81f354a8e97e50c2887f96aed150a88/register.php)
-[registerProcess.php](registerProcess.php)
+- [register.php : Formulaire d'inscription](register.php)
+- [registerProcess.php : Traitement de l'inscription](registerProcess.php)
+- [UserRegistration.php : classe utilisée pour la validation des données]()
 J'ai passé pas mal de temps à réfléchir où gérer la validation des données du formulaire d'inscription, pour finalement créer un classe UserRegistration. Au départ, je suis partie sur une classe avec des attributs et des méthodes publics. En reprenant le cours, je me suis demandé si j'allais vraiment vouloir instancier des objets de cette classe, à priori non, je suis donc PARTIE sur des méthodes statiques.
 J'ai également bloqué un peu bêtement sur la validation de l'email, je voulais vérifier deux choses (validité du format & présence éventuelle de cet amil dans la bdd) et afficher deux messages d'erreur différents à partir de l'email récupéré dans le $_POST. Je ne voulais pas créer de conflit entre les deux validations, j'ai sollicité chatGPT :/ pour relire mon code et je n'avais tout simplement pas pensé à insérer un tableau dans mon tableau d'erreur et à créer des "sous-erreurs".
 

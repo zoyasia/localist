@@ -1,52 +1,5 @@
 <?php
 
-/*
-class UserRegistration
-{
-    private array $formData;
-    private array $formErrors = [];
-
-    public function __construct($formData)
-    {
-        $this->formData = $formData;
-    }
-
-    public function isValidEmail()
-    {
-        $email = $this->formData['email'];
-        return filter_var($email, FILTER_VALIDATE_EMAIL);
-    }
-
-    public function passwordsMatch($pwd, $pwdConfirm)
-    {
-        $pwd = $this->formData['pwd'];
-        $pwdConfirm = $this->formData['pwdConfirm'];
-        return $pwd === $pwdConfirm;
-    }
-
-    public function validateForm()
-    {
-        if (!$this->isValidEmail($this->formData['email'])) {
-            $this->formErrors['email'] = "L'adresse e-mail n'est pas valide.";
-        }
-
-        if (!$this->passwordsMatch($this->formData['pwd'], $this->formData['pwdConfirm'])) {
-            $this->formErrors['password'] = "Les mots de passe ne correspondent pas.";
-        }
-    }
-
-    public function hasErrors()
-    {
-        return !empty($this->formErrors);
-    }
-
-    public function getErrors()
-    {
-        return $this->formErrors;
-    }
-}
-
-*/
 class UserRegistration
 {
     public static function validateEmail($email)
