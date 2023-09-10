@@ -1,60 +1,93 @@
-<?php 
+<?php
 
-class User {
-    public string $firstname;
-    public string $lastname;
-    public string $email;
-    public string $password;
-
-public function __construct(string $firstname, string $lastname, string $email, string $password)
+/*
+class UserRegistration
 {
-    $this->firstname = $firstname;
-    $this->lastname = $lastname;
-    $this->email = $email;
-    $this->password = $password;
-}
+    private array $formData;
+    private array $formErrors = [];
 
-    public function getFirstname()
+    public function __construct($formData)
     {
-        return $this->firstname;
+        $this->formData = $formData;
     }
 
-    public function setFirstname($firstname)
+    public function isValidEmail()
     {
-        $this->firstname = $firstname;
-        return $this;
+        $email = $this->formData['email'];
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public function getLastname()
+    public function passwordsMatch($pwd, $pwdConfirm)
     {
-        return $this->lastname;
+        $pwd = $this->formData['pwd'];
+        $pwdConfirm = $this->formData['pwdConfirm'];
+        return $pwd === $pwdConfirm;
     }
 
-    public function setLastname($lastname)
+    public function validateForm()
     {
-        $this->lastname = $lastname;
-        return $this;
+        if (!$this->isValidEmail($this->formData['email'])) {
+            $this->formErrors['email'] = "L'adresse e-mail n'est pas valide.";
+        }
+
+        if (!$this->passwordsMatch($this->formData['pwd'], $this->formData['pwdConfirm'])) {
+            $this->formErrors['password'] = "Les mots de passe ne correspondent pas.";
+        }
     }
 
-    public function getEmail()
+    public function hasErrors()
     {
-        return $this->email;
+        return !empty($this->formErrors);
     }
 
-    public function setEmail($email)
+    public function getErrors()
     {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
+        return $this->formErrors;
     }
 }
+
+*/
+class UserRegistration
+{
+    public static function validateEmail($email)
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    public static function passwordsMatch($pwd, $pwdConfirm)
+    {
+        return $pwd === $pwdConfirm;
+    }
+
+    public static function emailExists($pdo, $email)
+    {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+
+    public static function validateForm($formData)
+    {
+        $errors = [];
+
+        if (empty($formData[0])) {
+            $errors['firstname'] = "Le prénom est requis.";
+        }
+
+        if (empty($formData[1])) {
+            $errors['lastname'] = "Le nom est requis.";
+        }
+
+        if (!self::validateEmail($formData[2])) {
+            $errors['email'] = "L'adresse e-mail n'est pas valide.";
+        }
+
+        if (!self::passwordsMatch($formData[3], $formData[4])) {
+            $errors['password'] = "Les mots de passe ne correspondent pas.";
+        }
+
+        return $errors;
+    }
+}
+
