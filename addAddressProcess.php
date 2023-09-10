@@ -34,10 +34,13 @@ if (isset($_FILES['myFile'])) {
     $result = $picture->moveUploadedFile($destination);
 
     echo $result . "<br />";
+
+
 } else {
     $filename = ""; // Aucun fichier téléchargé
 }
 
+$filename = $picture->getFileName();
 
 /* CODE VALIDE POUR VERIFICATION UPLOAD
 

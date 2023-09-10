@@ -24,6 +24,7 @@ class Picture
         $fileSize = $this->file['size'];
 
         if ($fileSize > $this->maxSize) {
+            http_response_code(415);
             return "Le fichier est trop volumineux.";
         } elseif (!in_array($fileType, $this->allowedExtensions)) {
             return "Le format du fichier n'est pas compatible.";
