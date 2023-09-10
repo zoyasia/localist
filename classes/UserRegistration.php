@@ -20,6 +20,7 @@ class UserRegistration
         return $count > 0;
     }
 
+
     public static function validateForm($pdo, $formData)
     {
         $errors = [];

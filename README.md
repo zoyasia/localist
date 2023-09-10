@@ -22,10 +22,13 @@ DB_PASSWORD="password"
 Pour plus d'ae commodité, vous pouvez copier la base de donnée carnet_adresse disponible dans le dossier data et la coller dans votre propre serveur.
 
 Le MCD initial ainsi que l'arborescence créée en amont du projet sont également disponibles dans ce dossier data.
+- [MCD](data/Localist_MCD.png)
+- [Arborescence](data/Localist_Arbo.png)
+- [BDD]()
 
 Si vous souhaitez avoir un aperçu d'un profil déjà créé, vous pouvez vous connecter avec les identifiants de cette utilisatrice fictive:
-Adresse email: lena@lena.com
-mot de passe: lena
+**_Adresse email**_: lena@lena.com
+**_mot de passe**_: lena
 
 ## CONFIGURATION PHP
 Dans mon formulaire pour ajouter une nouvelle adresse (méthode POST), je propose d'uploader une image.
