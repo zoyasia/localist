@@ -67,7 +67,7 @@ class UserRegistration
         return $count > 0;
     }
 
-    public static function validateForm($formData)
+    public static function validateForm($pdo, $formData)
     {
         $errors = [];
 
@@ -80,7 +80,13 @@ class UserRegistration
         }
 
         if (!self::validateEmail($formData[2])) {
-            $errors['email'] = "L'adresse e-mail n'est pas valide.";
+            $errors['email']['format'] = "L'adresse e-mail n'est pas valide.";
+        }
+    
+        // Vérification de l'existence de l'email
+        $email = $formData[2];
+        if (self::emailExists($pdo, $email)) {
+            $errors['email']['exists'] = "Cette adresse e-mail est déjà utilisée.";
         }
 
         if (!self::passwordsMatch($formData[3], $formData[4])) {

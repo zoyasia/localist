@@ -24,7 +24,7 @@ try {
     $pwdConfirm
   ];
 
-  $formErrors = UserRegistration::validateForm($formData);
+  $formErrors = UserRegistration::validateForm($pdo, $formData);
 
   if (empty($formErrors)) {
 
@@ -53,32 +53,21 @@ try {
 
   require_once __DIR__ . '/layout/header.php';
     echo "<h1>Inscription</h1>";
-    foreach ($formErrors as $error) {
-        echo "<p>$error</p>";
-    }
+    foreach ($formErrors as $key => $error) {
+      if (is_array($error)) {
+          foreach ($error as $subError) {
+              echo "<p>$subError</p>";
+          }
+      } else {
+          echo "<p>$error</p>";
+      }
+  }
+
     echo '<a href="register.php">Retour au formulaire d\'inscription</a>';
     require_once __DIR__ . '/layout/footer.php';
 
 } catch (PDOException) {
+  http_response_code(500);
   echo "Erreur de connexion à la base de données";
   exit;
 }
-
-
-/*
-Validation des données
-
-vérifier que le format du mail est correct
-
-insérer peut-être des contraintes sur le pwd (majuscule, minuscule etc.)
-
-vérifier peut-être que le mail n'existe pas déjà dans la db 
-
-pour vérifier que les 2 pwd saisis sont identiques, insérer peut-être un
-if ($password != $confirmpassword) {
-echo("Error... Passwords do not match");
-exit;
-} else { $pwdOK = $pwd} et dans l'execute de la requête, insérer $pwdOK plutôt que pwd ?
-
-
-  */

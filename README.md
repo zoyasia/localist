@@ -31,6 +31,12 @@ mot de passe: lena
 Dans mon formulaire pour ajouter une nouvelle adresse (méthode POST), je propose d'uploader une image.
 J'ai configuré dans mon php.ini la taille maximale d'upload de fichier (3Mo) et la taille maximale des données POST que mon serveur peut accepter (3Mo).
 
+## INSCRIPTION
+[register.php](https://github.com/zoyasia/localist/blob/9073b16ff81f354a8e97e50c2887f96aed150a88/register.php)
+[registerProcess.php](registerProcess.php)
+J'ai passé pas mal de temps à réfléchir où gérer la validation des données du formulaire d'inscription, pour finalement créer un classe UserRegistration. Au départ, je suis partie sur une classe avec des attributs et des méthodes publics. En reprenant le cours, je me suis demandé si j'allais vraiment vouloir instancier des objets de cette classe, à priori non, je suis donc PARTIE sur des méthodes statiques.
+J'ai également bloqué un peu bêtement sur la validation de l'email, je voulais vérifier deux choses (validité du format & présence éventuelle de cet amil dans la bdd) et afficher deux messages d'erreur différents à partir de l'email récupéré dans le $_POST. Je ne voulais pas créer de conflit entre les deux validations, j'ai sollicité chatGPT :/ pour relire mon code et je n'avais tout simplement pas pensé à insérer un tableau dans mon tableau d'erreur et à créer des "sous-erreurs".
+
 ## CONNEXION
 _Erreur rencontrée:_ Lorsque je testais mon formulaire de connexion en entrant un mail et un mot de passe existant dans ma base de données, déjà affectés à un user, je ne parvenais jamais à me connecter. Mes var_dump du mot de passe en clair et du mot de passe haché correspondaient pourtant aux valeurs entrées dans ma db. J'ai d'abord pensé qu'il s'agissait d'un problème lors du hashage ou du dé-hashage du mot de passe, et j'ai enfin découvert que le problème venait de la configuration de ma base de données : ma colonne pwd était un varchar(45) alors que le hachage est bien plus long (60 caractères). J'ai appris qu'il était recommandé d'opter pour un varchar(255) pour stocker un mdo haché en base de donnée.
 **_ Améliorations envisagées:_**
