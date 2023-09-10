@@ -27,8 +27,8 @@ Le MCD initial ainsi que l'arborescence créée en amont du projet sont égaleme
 - [BDD]()
 
 Si vous souhaitez avoir un aperçu d'un profil déjà créé, vous pouvez vous connecter avec les identifiants de cette utilisatrice fictive:
-**_Adresse email**_: lena@lena.com
-**_mot de passe**_: lena
+**_Adresse email_**: lena@lena.com
+**_Mot de passe_**: lena
 
 ## CONFIGURATION PHP
 Dans mon formulaire pour ajouter une nouvelle adresse (méthode POST), je propose d'uploader une image.
@@ -193,8 +193,8 @@ Intégrer une fenêtre popup “êtes-vous sûr.e de vouloir supprimer votre com
 ## AUTRES AMÉLIORATIONS ENVISAGÉES
 - Refactorisation 
 - meilleure gestion des erreurs 'pour l'heure, j'ai intégré des codes de réponse http dans mes catch.
-- validation des données côté php insuffisante : j'ai essayé de mettre ça en place à l'aide d'une classe UserRegistration (à retrouver dans la branche)
-- ajouter de la PHPDoc, je n'en ai mis que sur une seule fonction, validateForm dans le fichier [UserRegistration.php](classes/UserRegistration.php)  
-
+- validation des données côté php insuffisante : il faudrait que je fasse une validation du format pour le numéro de téléphone, le zipcode des adresses par exemple.
+- ajouter de la PHPDoc, je n'en ai mis que sur une seule fonction, validateForm dans le fichier [UserRegistration.php](classes/UserRegistration.php)  .
+- Meilleure organisation de mes fichiers .php, peut-être créer uhn dossier pour chaque fonctionnalité (par ex, regrouper login, auth et kogout dans un même dossier Connexion).
 
 
