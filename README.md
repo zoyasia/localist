@@ -194,6 +194,7 @@ Intégrer une fenêtre popup “êtes-vous sûr.e de vouloir supprimer votre com
 - Refactorisation 
 - meilleure gestion des erreurs 'pour l'heure, j'ai intégré des codes de réponse http dans mes catch.
 - validation des données côté php insuffisante : j'ai essayé de mettre ça en place à l'aide d'une classe UserRegistration (à retrouver dans la branche)
+- ajouter de la PHPDoc, je n'en ai mis que sur une seule fonction, validateForm dans le fichier [UserRegistration.php](classes/UserRegistration.php)  
 
 
 

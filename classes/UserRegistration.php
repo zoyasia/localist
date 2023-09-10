@@ -20,7 +20,13 @@ class UserRegistration
         return $count > 0;
     }
 
-
+    /**
+     * Affiche les messages d'erreurs s'il y en a à la soumission du formulaire
+     *
+     * @param [PDO] $pdo
+     * @param [array] $formData
+     * @return string
+     */
     public static function validateForm($pdo, $formData)
     {
         $errors = [];
